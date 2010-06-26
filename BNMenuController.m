@@ -51,7 +51,7 @@ NSString * const BNNewStatusesAddedNotification = @"BNNewStatusesAddedNotificati
 - (id)init {
 	if (self = [super init]) {
 		preferencesWindow = [[BNPreferencesWindowController alloc] initWithWindowNibName:@"BNPreferencesWindowController"];
-	
+		
 		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(_receivedNotification:) name:BNStatusesDownloadedNotification object:nil];
 		
 		NSMenu *theMenu = [[NSMenu alloc] init];
@@ -87,14 +87,14 @@ NSString * const BNNewStatusesAddedNotification = @"BNNewStatusesAddedNotificati
 	//Add project to the projects array, then sort it.
 	[_sortedProjects addObject:aProject];
 	[self _sortProjectArray:_sortedProjects];
-
+	
 	//Find the insertion point with the new project added.
 	//Note that even if it is in there, it will return the index before.
 	NSInteger insertionIndex = [self _menuIndexForProject:aProject];
-
+	
 	//Capacity includes all statuses, plus the title item and the separator
 	NSMutableDictionary *itemDictionary = [NSMutableDictionary dictionaryWithCapacity:[[aProject latestStatuses] count] + 2];
-
+	
 	//Create the title item, with the attributed title
 	NPBlocksMenuItem *titleItem = [[NPBlocksMenuItem alloc] initWithTitle:@"" block:nil keyEquivalent:@""];
 	
@@ -114,7 +114,7 @@ NSString * const BNNewStatusesAddedNotification = @"BNNewStatusesAddedNotificati
 	
 	for (BNStatus *currentStatus in [aProject latestStatuses]) {
 		NSMenuItem *currItem = [self _newItemForStatus:currentStatus];
-	
+		
 		[itemDictionary setObject:currentStatus forKey:[BNMenuItemRef menuItemRefForMenuItem:currItem]];
 		[menu insertItem:currItem atIndex:insertionIndex++];
 	}
@@ -126,56 +126,87 @@ NSString * const BNNewStatusesAddedNotification = @"BNNewStatusesAddedNotificati
 	
 	//Add our dictionary to the project dictionary
 	[_projectDictionary setObject:itemDictionary forKey:aProject];
+	
+	[titleItem setBlock:^(NSMenuItem *item) {
+		NSURL *theURL = [aProject URL];
+		if (theURL != nil)
+			[[NSWorkspace sharedWorkspace] openURL:theURL];
+		//Get BNMenuItemRef --> BNStatus dict.
+		NSMutableDictionary *projectDict = [_projectDictionary objectForKey:[[_projectDictionary allKeys] objectAtIndex:[[_projectDictionary allKeys] indexOfObject:aProject]]];
+		for (BNStatus *currStatus in [projectDict allValues]) {
+			if ([currStatus isKindOfClass:[BNStatus class]])
+				[currStatus setRead:YES];
+		}
+		for (BNMenuItemRef *currItem in [projectDict allKeys]) {
+			//Protection against the title and separator items
+			if ([[currItem menuItem] state] == NSOnState) {
+				[[currItem menuItem] setState:NSOffState];
+			}
+		}
+		[self _doNotificationIfNecessary];
+	}];
 }
 
 - (void)updateProject:(BNProject *)aProject {
 	//Get BNMenuItemRef --> BNStatus dict.
-	NSMutableDictionary *projItemDict = [_projectDictionary objectForKey:aProject];
-	
+	NSMutableDictionary *projItemDict = [_projectDictionary objectForKey:[[_projectDictionary allKeys] objectAtIndex:[[_projectDictionary allKeys] indexOfObject:aProject]]];
 	//An array of BNMenuItemRefs
 	NSMutableArray *toDelete = [[[projItemDict allKeys] mutableCopy] autorelease];
+	NSInteger insertionIndex = 1 + [self _menuIndexForProject:aProject];
 	for (BNStatus *currentStatus in [aProject latestStatuses]) {
 		//If the dictionary contains the status (the menu already has the status)
 		if ([projItemDict containsValue:currentStatus]) {
 			//Do not include the item in the array to be removed
 			[toDelete removeObject:[projItemDict firstKeyForValue:currentStatus]];
 		} else {
-			NSInteger insertIndex = -1;
-			for (BNStatus *currOldStatus in [projItemDict allValues]) {
-				//Make sure it is not an NSNull status
-				if ([currentStatus isKindOfClass:[BNStatus class]]) {
-					//If the current status is later than the old status
-					if ([[currentStatus date] laterDate:[currOldStatus date]] == [currentStatus date]) {
-						//Insert index is the same as the old one (it will insert it before)
-						insertIndex = [menu indexOfItem:[projItemDict firstKeyForValue:currOldStatus]];
-						break;
-					}
-				}
-			}
-			
-			
 			//Create a new item
 			NSMenuItem *currItem = [self _newItemForStatus:currentStatus];
 			
 			[projItemDict setObject:currentStatus forKey:[BNMenuItemRef menuItemRefForMenuItem:currItem]];
-			[menu insertItem:currItem atIndex:insertIndex];			
+			[menu insertItem:currItem atIndex:insertionIndex++];			
 			
 		}
 	}
-	
 	//For all the items that are left (aka ones that are too old)
 	for (BNMenuItemRef *currRef in toDelete) {
-		//if the menu contains it
-		if ([menu containsItem:[currRef menuItem]]) {
+		//if the menu contains it, and that it is a status.
+		if ([menu containsItem:[currRef menuItem]] && [[[projItemDict objectForKey:currRef] class] isEqual:[BNStatus class]]) {
 			//Remove the item
 			[menu removeItem:[currRef menuItem]];
+		}
+	}
+	
+	//Fix up the title item block
+	NSArray *potentialTitles = [projItemDict keysForValue:[NSNull null]];
+	for (BNMenuItemRef *currRef in potentialTitles) {
+		NSMenuItem *theItem = [currRef menuItem];
+		if (![theItem isSeparatorItem]) {
+			[(NPBlocksMenuItem*)theItem setBlock:^(NSMenuItem *item) {
+				NSURL *theURL = [aProject URL];
+				if (theURL != nil)
+					[[NSWorkspace sharedWorkspace] openURL:theURL];
+				//Get BNMenuItemRef --> BNStatus dict.
+				NSMutableDictionary *projectDict = [_projectDictionary objectForKey:[[_projectDictionary allKeys] objectAtIndex:[[_projectDictionary allKeys] indexOfObject:aProject]]];
+				for (BNStatus *currStatus in [projectDict allValues]) {
+					if ([currStatus isKindOfClass:[BNStatus class]])
+						[currStatus setRead:YES];
+				}
+				for (BNMenuItemRef *currItem in [projectDict allKeys]) {
+					//Protection against the title and separator items
+					if ([[currItem menuItem] state] == NSOnState) {
+						[[currItem menuItem] setState:NSOffState];
+					}
+				}
+				[self _doNotificationIfNecessary];
+			}];
+			break;
 		}
 	}
 }
 
 - (void)removeProject:(BNProject *)aProject {
 	//Get BNMenuItemRef --> BNStatus dict.
-	NSMutableDictionary *projItemDict = [_projectDictionary objectForKey:aProject];
+	NSMutableDictionary *projItemDict = [_projectDictionary objectForKey:[[_projectDictionary allKeys] objectAtIndex:[[_projectDictionary allKeys] indexOfObject:aProject]]];
 	//An array of BNMenuItemRefs
 	NSMutableArray *toDelete = [[[projItemDict allKeys] mutableCopy] autorelease];
 	
@@ -217,10 +248,13 @@ NSString * const BNNewStatusesAddedNotification = @"BNNewStatusesAddedNotificati
 		NSMutableDictionary *projItemDict = [_projectDictionary objectForKey:currProject];
 		for (BNStatus *currentStatus in [projItemDict allValues]) {
 			if ([currentStatus isKindOfClass:[BNStatus class]] && ![currentStatus isRead]) {
+				NSLog(@"Darn! %@", currentStatus);
 				allRead = NO;
 				break;
 			}
 		}
+		if (!allRead)
+			break;
 	}
 	[[NSNotificationCenter defaultCenter] postNotificationName:(allRead ? BNAllStatusesReadNotification : BNHasUnreadStatusesNotification) object:self];
 }
@@ -235,18 +269,13 @@ NSString * const BNNewStatusesAddedNotification = @"BNNewStatusesAddedNotificati
 				[self addProject:currProject];
 			} else {
 				NSMutableArray *newStatuses = [[[currProject latestStatuses] mutableCopy] autorelease];
-				BNProject *oldProject = nil;
-				for (BNProject *currProject in _sortedProjects)
-					if ([currProject isEqual:currProject])
-						oldProject = currProject;
-				if (oldProject != nil) {
-					for (BNStatus *currentStatus in [oldProject latestStatuses]) {
-						if (![currentStatus isRead] && ![[currProject latestStatuses] containsObject:currentStatus])
-							[newStatuses addObject:currentStatus];
-						else if ([currentStatus isRead] && [[currProject latestStatuses] containsObject:currentStatus]) {
-							BNStatus *exactStatus = [newStatuses objectAtIndex:[newStatuses indexOfObject:currentStatus]];
-							[exactStatus setRead:YES];
-						}
+				BNProject *oldProject = [_sortedProjects objectAtIndex:[_sortedProjects indexOfObject:currProject]];
+				for (BNStatus *currentStatus in [oldProject latestStatuses]) {
+					if (![currentStatus isRead] && ![[currProject latestStatuses] containsObject:currentStatus])
+						[newStatuses addObject:currentStatus];
+					else if ([currentStatus isRead] && [[currProject latestStatuses] containsObject:currentStatus]) {
+						BNStatus *exactStatus = [newStatuses objectAtIndex:[newStatuses indexOfObject:currentStatus]];
+						[exactStatus setRead:YES];
 					}
 				}
 				[currProject setLatestStatuses:newStatuses];
@@ -266,7 +295,6 @@ NSString * const BNNewStatusesAddedNotification = @"BNNewStatusesAddedNotificati
 		[item setState:NSOffState];
 		[self _doNotificationIfNecessary];
 	} keyEquivalent:@""];
-	
 	//Set the custom on state image
 	[currItem setOnStateImage:_onStateImage];
 	
@@ -296,7 +324,7 @@ NSString * const BNNewStatusesAddedNotification = @"BNNewStatusesAddedNotificati
 	[currItem setImage:theImage];
 	return [currItem autorelease];
 }
-			 
+
 
 #pragma mark Singleton Methods
 

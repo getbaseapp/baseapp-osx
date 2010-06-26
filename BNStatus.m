@@ -39,6 +39,8 @@
 }
 
 - (BOOL)isEqual:(BNStatus *)otherStatus {
+	if (![otherStatus isKindOfClass:[BNStatus class]])
+		return NO;
 	return [[self title] isEqual:[otherStatus title]] && 
 	[[self creator] isEqual:[otherStatus creator]] &&
 	[[self URL] isEqual:[otherStatus URL]] &&
@@ -47,7 +49,7 @@
 }
 
 - (NSString *)description {
-	return [self title];
+	return [NSString stringWithFormat:@"%@ (%@)", [self title], [self isRead] ? @"READ" : @"UNREAD"];
 }
 
 - (void)dealloc {

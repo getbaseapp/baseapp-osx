@@ -36,11 +36,17 @@
 }
 
 - (BOOL)isEqual:(BNProject *)otherProject {
+	if (![otherProject isKindOfClass:[BNProject class]])
+		return NO;
 	return [[self name] isEqual:[otherProject name]] && [[self companyName] isEqual:[otherProject companyName]] && [[self account] isEqual:[otherProject account]];
 }
 
 - (NSString *)description {
 	return [NSString stringWithFormat:@"%@ (%@)", [self name], [self companyName]];
+}
+
+- (NSArray *)latestStatuses {
+	return [[latestStatuses retain] autorelease];
 }
 
 #pragma mark NSCopying Methods

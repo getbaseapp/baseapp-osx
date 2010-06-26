@@ -12,11 +12,19 @@
 @implementation NSDictionary (NPAdditions)
 
 - (BOOL)containsKey:(id)theKey {
-	return [[self allKeys] containsObject:theKey];
+	for (id currKey in [self allKeys]) {
+		if ([theKey isEqual:currKey])
+			return YES;
+	}
+	return NO;
 }
 
 - (BOOL)containsValue:(id)theValue {
-	return [[self allValues] containsObject:theValue];
+	for (id currValue in [self allValues]) {
+		if ([theValue isEqual:currValue])
+			return YES;
+	}
+	return NO;
 }
 
 - (id)firstKeyForValue:(id)theValue {
