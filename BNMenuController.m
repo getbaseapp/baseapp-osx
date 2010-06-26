@@ -217,9 +217,19 @@ NSString * const BNNewStatusesAddedNotification = @"BNNewStatusesAddedNotificati
 			[menu removeItem:[currRef menuItem]];
 		}
 	}
-	[_projectDictionary removeObjectForKey:aProject];
-	[_sortedProjects removeObject:aProject];
+	[_projectDictionary removeObjectForKey:[[_projectDictionary allKeys] objectAtIndex:[[_projectDictionary allKeys] indexOfObject:aProject]]];
+	[_sortedProjects removeObject:[_sortedProjects objectAtIndex:[_sortedProjects indexOfObject:aProject]]];
+	[self _doNotificationIfNecessary];
 }
+
+- (void)removeProjectsForAccount:(BNAccount *)theAccount {
+	NSArray *tempArray = [[_sortedProjects copy] autorelease];
+	for (BNProject *currProject in tempArray) {
+		if ([[currProject account] isEqual:theAccount])
+			[self removeProject:currProject];
+	}
+}
+
 
 #pragma mark Private Methods
 
@@ -248,7 +258,6 @@ NSString * const BNNewStatusesAddedNotification = @"BNNewStatusesAddedNotificati
 		NSMutableDictionary *projItemDict = [_projectDictionary objectForKey:currProject];
 		for (BNStatus *currentStatus in [projItemDict allValues]) {
 			if ([currentStatus isKindOfClass:[BNStatus class]] && ![currentStatus isRead]) {
-				NSLog(@"Darn! %@", currentStatus);
 				allRead = NO;
 				break;
 			}

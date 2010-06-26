@@ -36,6 +36,7 @@
 + (void)lockKeychain;
 + (void)unlockKeychain;
 + (void)setLogsErrors:(BOOL)flag;
++ (void)removeKeychainItem:(EMKeychainItem *)keychainItem;
 
 - (NSString *)password;
 - (NSString *)username;
@@ -43,6 +44,7 @@
 - (BOOL)setPassword:(NSString *)newPassword;
 - (BOOL)setUsername:(NSString *)newUsername;
 - (BOOL)setLabel:(NSString *)newLabel;
+- (void)remove;
 
 @end 
 

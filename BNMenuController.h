@@ -26,5 +26,6 @@ extern NSString * const BNNewStatusesAddedNotification;
 - (void)addProject:(BNProject *)aProject;
 - (void)updateProject:(BNProject *)aProject;
 - (void)removeProject:(BNProject *)aProject;
+- (void)removeProjectsForAccount:(BNAccount *)theAccount;
 
 @end

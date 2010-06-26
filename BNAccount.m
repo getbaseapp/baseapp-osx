@@ -38,7 +38,30 @@ static NSString * const BNAccountsCodingKeyURL = @"BNAccountsCodingKeyURL";
 }
 
 - (BOOL)isComplete {
-	return [self user] != nil && [self password] != nil && [self URL] != nil;
+	return [self user] != nil && [[self user] length] > 0 && [self password] != nil && [[self password] length] > 0 && [self URL] != nil && [[[self URL] absoluteString] length] > 0;
+}
+
+- (void)writeToKeychain {
+	if ([self isComplete]) {
+		[EMGenericKeychainItem setKeychainPassword:[self password] forUsername:[self user] service:[NSString stringWithFormat:@"Basecamp: %@", [[self URL] absoluteString]]];
+	}
+}
+
+- (void)removeFromKeychain {
+	if ([self isComplete]) {
+		EMGenericKeychainItem *theItem = [EMGenericKeychainItem genericKeychainItemForService:[NSString stringWithFormat:@"Basecamp: %@", [[self URL] absoluteString]] withUsername:[self user]];
+		if (theItem == nil)
+			theItem = [EMGenericKeychainItem addGenericKeychainItemForService:[NSString stringWithFormat:@"Basecamp: %@", [[self URL] absoluteString]] withUsername:[self user] password:[self password]];
+		[theItem remove];
+	}
+}
+
+- (void)setPasswordFromKeychain {
+	self.password = [EMGenericKeychainItem passwordForUsername:[self user] service:[NSString stringWithFormat:@"Basecamp: %@", [[self URL] absoluteString]]];
+}
+
+- (NSString *)description {
+	return self.user;
 }
 
 #pragma mark Accessors
@@ -50,9 +73,6 @@ static NSString * const BNAccountsCodingKeyURL = @"BNAccountsCodingKeyURL";
 	[newUser retain];
 	[user release];
 	user = newUser;
-	if ([self isComplete]) {
-		[EMGenericKeychainItem setKeychainPassword:[self password] forUsername:[self user] service:[NSString stringWithFormat:@"Basecamp: %@", [[self URL] absoluteString]]];
-	}
 	[self didChangeValueForKey:@"user"];
 }
 
@@ -63,9 +83,6 @@ static NSString * const BNAccountsCodingKeyURL = @"BNAccountsCodingKeyURL";
 	[newPassword retain];
 	[password release];
 	password = newPassword;
-	if ([self isComplete]) {
-		[EMGenericKeychainItem setKeychainPassword:[self password] forUsername:[self user] service:[NSString stringWithFormat:@"Basecamp: %@", [[self URL] absoluteString]]];
-	}
 	[self didChangeValueForKey:@"password"];
 }
 
@@ -76,9 +93,6 @@ static NSString * const BNAccountsCodingKeyURL = @"BNAccountsCodingKeyURL";
 	[newURL retain];
 	[URL release];
 	URL = newURL;
-	if ([self isComplete]) {
-		[EMGenericKeychainItem setKeychainPassword:[self password] forUsername:[self user] service:[NSString stringWithFormat:@"Basecamp: %@", [[self URL] absoluteString]]];
-	}
 	[self didChangeValueForKey:@"URL"];
 }
 
@@ -92,7 +106,6 @@ static NSString * const BNAccountsCodingKeyURL = @"BNAccountsCodingKeyURL";
 	if (self = [super init]) {
 		[self setUser:[decoder decodeObjectForKey:BNAccountsCodingKeyUser]];
 		[self setURL:[decoder decodeObjectForKey:BNAccountsCodingKeyURL]];
-		[self setPassword:[EMGenericKeychainItem passwordForUsername:[self user] service:[NSString stringWithFormat:@"Basecamp: %@", [[self URL] absoluteString]]]];
 	}
 	return self;
 }

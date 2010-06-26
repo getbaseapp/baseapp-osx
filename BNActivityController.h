@@ -22,5 +22,9 @@ extern NSString * const BNProjectArrayKey;
 + (BNActivityController *)sharedController;
 - (void)addAccount:(BNAccount *)anAccount;
 - (void)refreshAllAccounts;
+- (NSString *)pathForDataFile;
+- (BNAccount *)accountAtIndex:(NSUInteger)index;
+- (NSUInteger)accountCount;
+- (void)removeAccount:(BNAccount *)anAccount;
 
 @end

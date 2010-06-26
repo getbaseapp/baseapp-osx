@@ -42,6 +42,10 @@ static BOOL _logErrors;
 	_logErrors = flag;
 }
 
++ (void)removeKeychainItem:(EMKeychainItem *)keychainItem {
+	[keychainItem remove];
+}
+
 - (id)initWithCoreKeychainItem:(SecKeychainItemRef)item username:(NSString *)username password:(NSString *)password {
 	if (self = [super init]) 	{
 		coreKeychainItem = item;
@@ -90,7 +94,11 @@ static BOOL _logErrors;
 	
 	return [self modifyAttributeWithTag:kSecLabelItemAttr toBeString:newLabel];
 }
+- (void)remove {
+  	SecKeychainItemDelete(coreKeychainItem);
+}
 - (void)dealloc {
+	if (coreKeychainItem) CFRelease(coreKeychainItem);
 	[myPassword release];
 	[myUsername release];
 	[myLabel release];
@@ -133,7 +141,7 @@ static BOOL _logErrors;
 	if (returnStatus != noErr || !item) 	{
 		if (_logErrors)
 			NSLog(@"Error (%@) - %s", NSStringFromSelector(_cmd), GetMacOSStatusErrorString(returnStatus));
-
+		
 		return nil;
 	}
 	
@@ -145,7 +153,7 @@ static BOOL _logErrors;
 	
 	passwordStore[passwordLength] = '\0';
 	NSString *passwordString = [NSString stringWithUTF8String:passwordStore];
-
+	
 	SecKeychainItemFreeContent(NULL, password);
 	
 	return [EMGenericKeychainItem genericKeychainItem:item forServiceName:serviceNameString username:usernameString password:passwordString];
@@ -172,7 +180,7 @@ static BOOL _logErrors;
 + (void) setKeychainPassword:(NSString*)password forUsername:(NSString*)username service:(NSString*)serviceName {
 	EMKeychainItem *item = [EMGenericKeychainItem genericKeychainItemForService:serviceName withUsername:username];
 	if (item == nil)
-		item = [EMGenericKeychainItem addGenericKeychainItemForService:serviceName withUsername:username password:password];
+		[EMGenericKeychainItem addGenericKeychainItemForService:serviceName withUsername:username password:password];
 	else
 		[item setPassword:password];
 }
@@ -243,7 +251,7 @@ static BOOL _logErrors;
 	NSString *passwordString = [NSString stringWithUTF8String:passwordStore];
 	
 	SecKeychainItemFreeContent(NULL, password);
-
+	
 	SecKeychainItemFreeContent(NULL, password);
 	
 	return [EMInternetKeychainItem internetKeychainItem:item forServer:serverString username:usernameString password:passwordString path:pathString port:port protocol:protocol];

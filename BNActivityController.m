@@ -18,6 +18,7 @@ NSString * const BNProjectArrayKey = @"BNProjectArrayKey";
 
 @interface BNActivityController ()
 - (void)_userDefaultsNotificationReceived:(NSNotification *)aNotification;
+- (void)_terminationNotificationReceived:(NSNotification *)aNotification;
 @end
 
 @implementation BNActivityController
@@ -25,39 +26,74 @@ NSString * const BNProjectArrayKey = @"BNProjectArrayKey";
 - (id)init {
 	if (self = [super init]) {
 		_feedQueue = [[NSOperationQueue alloc] init];
-		_accountArray = [[NSMutableArray alloc] init];
+		
 		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(_userDefaultsNotificationReceived:) name:NSUserDefaultsDidChangeNotification object:[NSUserDefaults standardUserDefaults]];
+		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(_terminationNotificationReceived:) name:NSApplicationWillTerminateNotification object:NSApp];
 		[self _userDefaultsNotificationReceived:nil];
+		
+		_accountArray = [[NSKeyedUnarchiver unarchiveObjectWithFile:[self pathForDataFile]] mutableCopy];
+		if (_accountArray == nil)
+			_accountArray = [[NSMutableArray alloc] init];
+		else {
+			for (BNAccount *currAccount in _accountArray)
+				[currAccount setPasswordFromKeychain];
+			[self refreshAllAccounts];
+		}
 	}
 	return self;
 }
 
 - (void)addAccount:(BNAccount *)anAccount {
-	if (![anAccount isComplete] || [_accountArray containsObject:anAccount])
+	if ([_accountArray containsObject:anAccount])
 		return;
-	 [_accountArray addObject:anAccount];
+	[_accountArray addObject:anAccount];
 	[self refreshAllAccounts];
 }
 
 - (void)removeAccount:(BNAccount *)anAccount {
 	if (![_accountArray containsObject:anAccount])
 		return;
+	[anAccount removeFromKeychain];
 	[_accountArray removeObject:anAccount];
 }
 
+- (NSUInteger)accountCount {
+	return [_accountArray count];
+}
+
+- (BNAccount *)accountAtIndex:(NSUInteger)index {
+	if (index >= 0 && index < [_accountArray count])
+		return [_accountArray objectAtIndex:index];
+	return nil;
+}
+
 - (void)refreshAllAccounts {
-	NSLog(@"Refreshing!");
 	for (BNAccount *currAccount in _accountArray) {
-		BNFeedOperation *feedOperation = [[BNFeedOperation alloc] initWithAccount:currAccount delegate:self];
-		[_feedQueue addOperation:feedOperation];
-		[feedOperation release];
+		if ([currAccount isComplete]) {
+			BNFeedOperation *feedOperation = [[BNFeedOperation alloc] initWithAccount:currAccount delegate:self];
+			[_feedQueue addOperation:feedOperation];
+			[feedOperation release];
+		}
 	}
+}
+
+- (NSString *)pathForDataFile {
+	NSFileManager *fileManager = [NSFileManager defaultManager];
+    
+	NSString *folder = @"~/Library/Application Support/Basecamp Notifications/";
+	folder = [folder stringByExpandingTildeInPath];
+	
+	if ([fileManager fileExistsAtPath:folder] == NO) {
+		[fileManager createDirectoryAtPath:folder withIntermediateDirectories:YES attributes:nil error:nil];
+	}
+    
+	NSString *fileName = @"Accounts.bndata";
+	return [folder stringByAppendingPathComponent:fileName];    
 }
 
 #pragma mark Feed Operation Delegate Methods
 
 - (void)feedOperation:(BNFeedOperation *)theOperation didSucceedWithProjects:(NSArray *)projectArray {
-	NSLog(@"Posting notification!");
 	[[NSNotificationCenter defaultCenter] postNotificationName:BNStatusesDownloadedNotification object:[theOperation account] userInfo:[NSDictionary dictionaryWithObject:projectArray forKey:BNProjectArrayKey]];
 }
 
@@ -65,7 +101,7 @@ NSString * const BNProjectArrayKey = @"BNProjectArrayKey";
 	NSLog(@"%@", theError);
 }
 
-#pragma mark User Defaults
+#pragma mark Notifications
 
 - (void)_userDefaultsNotificationReceived:(NSNotification *)aNotification {
 	if (_refreshTimer != nil && [_refreshTimer isValid])
@@ -73,6 +109,15 @@ NSString * const BNProjectArrayKey = @"BNProjectArrayKey";
 	_refreshTimer = [NSTimer scheduledTimerWithTimeInterval:[[[NSUserDefaults standardUserDefaults] objectForKey:@"RefreshInterval"] unsignedIntegerValue] block:^(NSTimer *theTimer){
 		[self refreshAllAccounts];
 	} repeats:YES];
+}
+
+- (void)_terminationNotificationReceived:(NSNotification *)aNotification; {
+	for (BNAccount *currAccount in _accountArray) {
+		if ([currAccount isComplete]) {
+			[currAccount writeToKeychain];
+		}
+	}
+	[NSKeyedArchiver archiveRootObject:_accountArray toFile:[self pathForDataFile]];
 }
 
 #pragma mark Singleton Methods

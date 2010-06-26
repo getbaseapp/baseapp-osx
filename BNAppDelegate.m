@@ -20,20 +20,15 @@
 
 + (void)initialize {
 	NSMutableDictionary *theDefaults = [NSMutableDictionary dictionary];
-	[theDefaults setObject:@"npaulson" forKey:@"user"];
-	[theDefaults setObject:@"nqhp2p" forKey:@"password"];
-	[theDefaults setObject:@"http://bylinebreak.basecamphq.com/" forKey:@"url"];
-	[theDefaults setObject:@"Morse" forKey:@"SelectedSongNotificationName"];
 	[theDefaults setObject:[NSNumber numberWithInteger:0] forKey:@"GrowlNotificationsEnabled"];
 	[theDefaults setObject:[NSNumber numberWithInteger:0] forKey:@"SoundNotificationsEnabled"];
-	[theDefaults setObject:[NSNumber numberWithLongLong:10] forKey:@"RefreshInterval"];
+	[theDefaults setObject:[NSNumber numberWithLongLong:60] forKey:@"RefreshInterval"];
 	[[NSUserDefaults standardUserDefaults] registerDefaults:theDefaults];
 }
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
 	[BNStatusItemController sharedController];
-	[[BNActivityController sharedController] addAccount:[BNAccount accountWithUser:[[NSUserDefaults standardUserDefaults] stringForKey:@"user"] password:[[NSUserDefaults standardUserDefaults] stringForKey:@"password"] URL:[NSURL URLWithString:[[NSUserDefaults standardUserDefaults] stringForKey:@"url"]]]];
-	
+	[BNActivityController sharedController];
 	[GrowlApplicationBridge setGrowlDelegate:[BNUserNotificationController sharedController]];
 }
 

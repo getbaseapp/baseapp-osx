@@ -13,6 +13,7 @@
 #import "BNMenuController.h"
 #import "NSDictionary+NPAdditions.h"
 #import <Sparkle/Sparkle.h>
+#import "BNURLPrefixValueTransformer.h"
 
 @interface BNPreferencesWindowController ()
 @property (retain, readwrite) NSArray *songNamesArray;
@@ -31,14 +32,7 @@
 }
 
 - (void)awakeFromNib {
-	if ([[SUUpdater sharedUpdater] lastUpdateCheckDate] == nil) {
-		[[SUUpdater sharedUpdater] addObserver:self forKeyPath:@"lastUpdateCheckDate" options:NSKeyValueObservingOptionPrior context:nil];
-	} else {
-		NSRect newFrame = self.window.frame;
-		newFrame.size.height += 25;
-		newFrame.origin.y -= 25;
-		[self.window setFrame:newFrame display:YES];
-	}
+
 }	
 
 - (IBAction)soundPopUpTriggered:(id)sender {
@@ -46,17 +40,54 @@
 	[[NSSound soundNamed:[sender titleOfSelectedItem]] play];
 }
 
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
-	if ([change containsKey:NSKeyValueChangeNotificationIsPriorKey]) {
-		NSDate *oldDate = [object valueForKeyPath:keyPath];
-		if (oldDate == nil) {
-			NSRect newFrame = self.window.frame;
-			newFrame.size.height += 25;
-			newFrame.origin.y -= 25;
-			[self.window setFrame:newFrame display:YES animate:YES];
-			[[SUUpdater sharedUpdater] removeObserver:self forKeyPath:@"lastUpdateCheckDate"];
+- (IBAction)plusButtonPressed:(id)sender {
+	[NSApp beginSheet:addAccountSheet modalForWindow:self.window modalDelegate:self didEndSelector:NULL contextInfo:nil];
+}
+
+- (IBAction)minusButtonPressed:(id)sender {
+	if ([accountTableView selectedRow] >= 0) {
+		BNAccount *theAccount = [[BNActivityController sharedController] accountAtIndex:[accountTableView selectedRow]];
+		if (theAccount != nil) {
+			[[BNMenuController sharedController] removeProjectsForAccount:theAccount];
+			[[BNActivityController sharedController] removeAccount:theAccount];
+			[accountTableView reloadData];
 		}
 	}
+}
+
+- (IBAction)addAccountPressed:(id)sender {
+	if ([[userField stringValue] length] > 0 && [[passwordField stringValue] length] > 0 && [[urlPrefixField stringValue] length] > 0) {
+		BNURLPrefixValueTransformer *transformer = [[BNURLPrefixValueTransformer alloc] init];
+		[[BNActivityController sharedController] addAccount:[BNAccount accountWithUser:[userField stringValue] password:[passwordField stringValue] URL:[transformer transformedValue:[urlPrefixField stringValue]]]];
+		[transformer release];
+		[addAccountSheet orderOut:nil];
+		[NSApp endSheet:addAccountSheet];
+		[accountTableView reloadData];
+		[userField setStringValue:@""];
+		[passwordField setStringValue:@""];
+		[urlPrefixField setStringValue:@""];
+		[addAccountSheet makeFirstResponder:urlPrefixField];
+	}
+}
+
+- (IBAction)cancelButtonPressed:(id)sender {
+	[addAccountSheet orderOut:nil];
+	[NSApp endSheet:addAccountSheet];
+}
+
+#pragma mark NSTableView Methods
+
+- (NSInteger)numberOfRowsInTableView:(NSTableView *)aTableView {
+	return [[BNActivityController sharedController] accountCount];
+}
+
+- (id)tableView:(NSTableView *)aTableView objectValueForTableColumn:(NSTableColumn *)aTableColumn row:(NSInteger)rowIndex {
+	BNAccount *theAccount = [[BNActivityController sharedController] accountAtIndex:rowIndex];
+	if ([[aTableColumn identifier] isEqualToString:@"accountUserColumn"])
+		return theAccount.user;
+	else if ([[aTableColumn identifier] isEqualToString:@"basecampURLColumn"])
+		return [theAccount.URL absoluteString];
+	return nil;
 }
 
 - (void)dealloc {

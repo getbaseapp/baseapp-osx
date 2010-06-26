@@ -25,5 +25,8 @@
 - (id)initWithUser:(NSString *)aUser password:(NSString *)aPassword URL:(NSURL *)aURL;
 + (BNAccount *)accountWithUser:(NSString *)aUser password:(NSString *)aPassword URL:(NSURL *)aURL;
 - (BOOL)isComplete;
+- (void)writeToKeychain;
+- (void)removeFromKeychain;
+- (void)setPasswordFromKeychain;
 
 @end
