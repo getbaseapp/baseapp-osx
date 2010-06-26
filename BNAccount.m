@@ -9,17 +9,19 @@
 #import "BNAccount.h"
 #import "EMKeychain.h"
 
-static NSString *BNAccountsCodingKeyUser = @"BNAccountsCodingKeyUser";
-static NSString *BNAccountsCodingKeyURL = @"BNAccountsCodingKeyURL";
+static NSString * const BNAccountsCodingKeyUser = @"BNAccountsCodingKeyUser";
+static NSString * const BNAccountsCodingKeyURL = @"BNAccountsCodingKeyURL";
 
-@interface BNAccount ()
-@property (retain, readwrite) NSString *user;
-@property (retain, readwrite) NSString *password;
-@property (retain, readwrite) NSURL *URL;
-@end
 
 @implementation BNAccount
 @synthesize user, password, URL, free;
+
+- (id)init {
+	if (self = [self initWithUser:nil password:nil URL:nil]) {
+		
+	}
+	return self;
+}
 
 - (id)initWithUser:(NSString *)aUser password:(NSString *)aPassword URL:(NSURL *)aURL {
 	if (self = [super init]) {
@@ -42,36 +44,42 @@ static NSString *BNAccountsCodingKeyURL = @"BNAccountsCodingKeyURL";
 #pragma mark Accessors
 
 - (void)setUser:(NSString *)newUser {
-	if ([[self user] isEqual:newUser])
+	if (user == newUser)
 		return;
+	[self willChangeValueForKey:@"user"];
 	[newUser retain];
 	[user release];
 	user = newUser;
 	if ([self isComplete]) {
 		[EMGenericKeychainItem setKeychainPassword:[self password] forUsername:[self user] service:[NSString stringWithFormat:@"Basecamp: %@", [[self URL] absoluteString]]];
 	}
+	[self didChangeValueForKey:@"user"];
 }
 
 - (void)setPassword:(NSString *)newPassword {
-	if ([[self password] isEqual:newPassword])
+	if (password == newPassword)
 		return;
+	[self willChangeValueForKey:@"password"];
 	[newPassword retain];
 	[password release];
 	password = newPassword;
 	if ([self isComplete]) {
 		[EMGenericKeychainItem setKeychainPassword:[self password] forUsername:[self user] service:[NSString stringWithFormat:@"Basecamp: %@", [[self URL] absoluteString]]];
 	}
+	[self didChangeValueForKey:@"password"];
 }
 
 - (void)setURL:(NSURL *)newURL {
-	if ([[self URL] isEqual:newURL])
+	if (URL == newURL)
 		return;
+	[self willChangeValueForKey:@"URL"];
 	[newURL retain];
 	[URL release];
 	URL = newURL;
 	if ([self isComplete]) {
 		[EMGenericKeychainItem setKeychainPassword:[self password] forUsername:[self user] service:[NSString stringWithFormat:@"Basecamp: %@", [[self URL] absoluteString]]];
 	}
+	[self didChangeValueForKey:@"URL"];
 }
 
 - (id)copyWithZone:(NSZone *)zone {

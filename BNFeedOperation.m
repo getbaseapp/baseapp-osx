@@ -16,7 +16,7 @@
 #import <PubSub/PubSub.h>
 
 @interface BNFeedOperation ()
-- (NSArray *)_projectsInFeed:(PSFeed *)theFeed;
+- (NSArray *)_projectsInFeed:(PSFeed *)theFeed account:(BNAccount *)theAccount;
 - (NSString *)_projectNameInEntry:(PSEntry *)theEntry;
 - (BNStatus *)_statusForEntry:(PSEntry *)theEntry;
 - (NSArray *)_statusesForProject:(BNProject *)theProject inFeed:(PSFeed *)theFeed account:(BNAccount *)theAccount;
@@ -43,7 +43,6 @@
 	NSError *theError = nil;
 	BNAccount *theAccount = [self account];
 	NSArray *projArray = [self _projectsForAccount:theAccount error:&theError];
-	
 	if (theError != nil && delegate != nil && [delegate respondsToSelector:@selector(feedOperation:didFailWithError:)]) {
 		[delegate performBlockOnMainThread:^{
 			[delegate feedOperation:self didFailWithError:theError];
@@ -82,7 +81,7 @@
 		
 		NSURL *projectURL = [NSURL URLWithString:[NSString stringWithFormat:@"https://%@/projects/%i", [[theAccount URL] host], intValue]];
 		PSFeed *theFeed = [[PSFeed alloc] initWithData:retData URL:[theAccount URL]];
-		BNProject *theProject = [BNProject projectWithName:[theFeed title] companyName:[self _firstCompanyNameInFeed:theFeed] URL:projectURL];
+		BNProject *theProject = [BNProject projectWithName:[theFeed title] companyName:[self _firstCompanyNameInFeed:theFeed] URL:projectURL account:theAccount];
 		NSArray *theStatuses = [self _statusesForProject:theProject inFeed:theFeed account:theAccount];
 		NSSortDescriptor *sortDesc = [[NSSortDescriptor alloc] initWithKey:@"date" ascending:NO];
 		theStatuses = [theStatuses sortedArrayUsingDescriptors:[NSArray arrayWithObject:sortDesc]];
@@ -104,7 +103,7 @@
 	}
 	
 	PSFeed *theFeed = [[PSFeed alloc] initWithData:retData URL:[theAccount URL]];
-	NSArray *theProjects = [self _projectsInFeed:theFeed];
+	NSArray *theProjects = [self _projectsInFeed:theFeed account:theAccount];
 	NSMutableArray *retArray = [NSMutableArray arrayWithCapacity:[theProjects count]];
 	for (BNProject *currProject in theProjects) {
 		NSArray *theStatuses = [self _statusesForProject:currProject inFeed:theFeed account:theAccount];
@@ -164,8 +163,15 @@
 	NSData *projXMLRetData = [NSURLConnection sendSynchronousRequest:[self _requestForURL:[NSURL URLWithString:projectsURL] account:theAccount] returningResponse:nil error:&tempError];
 	
 	NSString *testString = [[NSString alloc] initWithData:projXMLRetData encoding:NSUTF8StringEncoding];
-	if ([testString rangeOfString:@"<error>The API is not available to this account</error>"].location != NSNotFound)
+	if ([testString rangeOfString:@"<error>The API is not available to this account</error>"].location != NSNotFound) {
+		NSLog(@"API Not supported Error!");
 		return nil;
+	}
+	if (projXMLRetData == nil) {
+		NSLog(@"projXML returned nil");
+		*theError = [NSError errorWithDomain:NSURLErrorDomain code:NSURLErrorBadServerResponse userInfo:nil];
+		return nil;
+	}
 	
 	NSXMLDocument *readDoc = [[NSXMLDocument alloc] initWithData:projXMLRetData options:NSXMLDocumentValidate error:&tempError];
 	if (tempError != nil) {
@@ -174,8 +180,10 @@
 		return nil;
 	}
 	NSArray *projectsArray = [[readDoc rootElement] children];
-	if (projectsArray == nil || [projectsArray count] == 0)
+	if (projectsArray == nil || [projectsArray count] == 0) {
+		NSLog(@"Projects array was nil or empty!");
 		return nil;
+	}
 	NSMutableArray *retArray = [NSMutableArray arrayWithCapacity:[projectsArray count]];
 	for (NSXMLNode *currProject in projectsArray) {
 		NSNumber *retNum = nil;
@@ -196,7 +204,7 @@
 	return retArray;
 }
 
-- (NSArray *)_projectsInFeed:(PSFeed *)theFeed {
+- (NSArray *)_projectsInFeed:(PSFeed *)theFeed account:(BNAccount *)theAccount {
 	NSEnumerator *entryEnumerator = [theFeed entryEnumeratorSortedBy:nil];
 	PSEntry *currEntry;
 	NSMutableArray *retArray = [NSMutableArray array];
@@ -204,7 +212,7 @@
 		NSString *projName = [self _projectNameInEntry:currEntry];
 		if (projName == nil)
 			continue;
-		BNProject *theProject = [BNProject projectWithName:projName companyName:[theFeed title] URL:nil];
+		BNProject *theProject = [BNProject projectWithName:projName companyName:[theFeed title] URL:nil account:theAccount];
 		if (![retArray containsObject:theProject])
 			[retArray addObject:theProject];
 	}
@@ -237,7 +245,7 @@
 	PSEntry *currEntry;
 	NSMutableArray *retArray = [NSMutableArray array];
 	while (currEntry = [entryEnumerator nextObject]) {
-		BNProject *tempProject = [BNProject projectWithName:([theAccount isFree] ? [self _projectNameInEntry:currEntry] : [theFeed title]) companyName:([theAccount isFree] ? [theFeed title] : [self _firstCompanyNameInFeed:theFeed]) URL:nil];
+		BNProject *tempProject = [BNProject projectWithName:([theAccount isFree] ? [self _projectNameInEntry:currEntry] : [theFeed title]) companyName:([theAccount isFree] ? [theFeed title] : [self _firstCompanyNameInFeed:theFeed]) URL:nil account:theAccount];
 		if ([tempProject isEqual:theProject]) {
 			[retArray addObject:[self _statusForEntry:currEntry]];
 		}

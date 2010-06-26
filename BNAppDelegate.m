@@ -24,8 +24,8 @@
 	[theDefaults setObject:@"nqhp2p" forKey:@"password"];
 	[theDefaults setObject:@"http://bylinebreak.basecamphq.com/" forKey:@"url"];
 	[theDefaults setObject:@"Morse" forKey:@"SelectedSongNotificationName"];
-	[theDefaults setObject:[NSNumber numberWithBool:NO] forKey:@"GrowlNotificationsEnabled"];
-	[theDefaults setObject:[NSNumber numberWithBool:NO] forKey:@"SoundNotificationsEnabled"];
+	[theDefaults setObject:[NSNumber numberWithInteger:0] forKey:@"GrowlNotificationsEnabled"];
+	[theDefaults setObject:[NSNumber numberWithInteger:0] forKey:@"SoundNotificationsEnabled"];
 	[theDefaults setObject:[NSNumber numberWithLongLong:60] forKey:@"RefreshInterval"];
 	[[NSUserDefaults standardUserDefaults] registerDefaults:theDefaults];
 }

@@ -12,10 +12,10 @@
 //BNProjectKey --> BNProject
 extern NSString * const BNNewStatusesAddedNotification;
 
-@class BNProject, BNPreferencesWindowController;
+@class BNProject, BNAccount, BNPreferencesWindowController;
 @interface BNMenuController : NSObject {
 	NSMutableArray *_sortedProjects;
-	NSMutableDictionary *_projectDictionary; //BNProject --> NSMutableArray of NSMenuItems
+	NSMutableDictionary *_projectDictionary; //BNProject --> NSMutableDictionary (NSMenuItem --> BNStatus/NSNull)
 	NSMenu *menu;
 	BNPreferencesWindowController *preferencesWindow;
 }

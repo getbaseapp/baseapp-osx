@@ -8,7 +8,7 @@
 
 #import <Cocoa/Cocoa.h>
 
-
+@class BNAccount;
 @interface BNPreferencesWindowController : NSWindowController {
 	NSArray *songNamesArray;
 	NSArray *refreshStrings;

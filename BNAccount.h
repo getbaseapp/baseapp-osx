@@ -13,12 +13,13 @@
 	NSString *user;
 	NSString *password;
 	NSURL *URL;
+	NSString *URLPrefix;
 	BOOL free;
 }
 
-@property (retain, readonly) NSString *user;
-@property (retain, readonly) NSString *password;
-@property (retain, readonly) NSURL *URL;
+@property (retain, readwrite) NSString *user;
+@property (retain, readwrite) NSString *password;
+@property (retain, readwrite) NSURL *URL;
 @property (assign, readwrite, getter=isFree) BOOL free;
 
 - (id)initWithUser:(NSString *)aUser password:(NSString *)aPassword URL:(NSURL *)aURL;

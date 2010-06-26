@@ -11,30 +11,32 @@
 @interface BNProject ()
 @property (retain, readwrite) NSString *name;
 @property (retain, readwrite) NSString *companyName;
+@property (retain, readwrite) BNAccount *account;
 @end
 
 @implementation BNProject
-@synthesize name, companyName, latestStatuses, URL;
+@synthesize name, companyName, latestStatuses, URL, account;
 
 - (id)init {
-	return [self initWithName:@"" companyName:@"" URL:nil];
+	return [self initWithName:@"" companyName:@"" URL:nil account:nil];
 }
 
-- (id)initWithName:(NSString *)aName companyName:(NSString *)compName URL:(NSURL *)theURL {
+- (id)initWithName:(NSString *)aName companyName:(NSString *)compName URL:(NSURL *)theURL account:(BNAccount *)theAccount {
 	if (self = [super init]) {
 		[self setName:aName];
 		[self setCompanyName:compName];
 		[self setURL:theURL];
+		[self setAccount:theAccount];
 	}
 	return self;
 }
 
-+ (BNProject *)projectWithName:(NSString *)aName companyName:(NSString *)compName URL:(NSURL *)theURL {
-	return [[[[self class] alloc] initWithName:aName companyName:compName URL:theURL] autorelease];
++ (BNProject *)projectWithName:(NSString *)aName companyName:(NSString *)compName URL:(NSURL *)theURL account:(BNAccount *)theAccount {
+	return [[[[self class] alloc] initWithName:aName companyName:compName URL:theURL account:theAccount] autorelease];
 }
 
 - (BOOL)isEqual:(BNProject *)otherProject {
-	return [[self name] isEqual:[otherProject name]] && [[self companyName] isEqual:[otherProject companyName]];
+	return [[self name] isEqual:[otherProject name]] && [[self companyName] isEqual:[otherProject companyName]] && [[self account] isEqual:[otherProject account]];
 }
 
 - (NSString *)description {
@@ -44,7 +46,7 @@
 #pragma mark NSCopying Methods
 
 - (id)copyWithZone:(NSZone *)zone {
-	BNProject *otherProject = [[[self class] allocWithZone:zone] initWithName:[self name] companyName:[self companyName] URL:[self URL]];
+	BNProject *otherProject = [[[self class] allocWithZone:zone] initWithName:[self name] companyName:[self companyName] URL:[self URL] account:[self account]];
 	[otherProject setLatestStatuses:[self latestStatuses]];
 	return otherProject;
 }

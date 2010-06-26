@@ -17,7 +17,7 @@
 	if (self = [super init]) {
 		[[NSNotificationCenter defaultCenter] addObserverForName:BNNewStatusesAddedNotification object:nil queue:nil usingBlock:^(NSNotification *theNotification){
 			if ([[NSUserDefaults standardUserDefaults] boolForKey:@"GrowlNotificationsEnabled"]) {
-				[GrowlApplicationBridge notifyWithTitle:[NSString stringWithFormat:@"Project: %@", [[[theNotification userInfo] objectForKey:@"BNProjectKey"] name]] 
+				[GrowlApplicationBridge notifyWithTitle:[[[theNotification userInfo] objectForKey:@"BNProjectKey"] description] 
 											description:[NSString stringWithFormat:@"%i new status%@ have been added", [[[theNotification userInfo] objectForKey:@"BNNewStatusCountKey"] integerValue], ([[[theNotification userInfo] objectForKey:@"BNNewStatusCountKey"] integerValue] == 1 ? @"" : @"es")] 
 									   notificationName:@"BNHasUnreadStatusesGrowlNotification" iconData:nil priority:0 isSticky:NO clickContext:nil];
 			}

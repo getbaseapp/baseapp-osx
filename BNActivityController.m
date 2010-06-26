@@ -27,6 +27,7 @@ NSString * const BNProjectArrayKey = @"BNProjectArrayKey";
 		_feedQueue = [[NSOperationQueue alloc] init];
 		_accountArray = [[NSMutableArray alloc] init];
 		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(_userDefaultsNotificationReceived:) name:NSUserDefaultsDidChangeNotification object:[NSUserDefaults standardUserDefaults]];
+		[self _userDefaultsNotificationReceived:nil];
 	}
 	return self;
 }
@@ -34,7 +35,7 @@ NSString * const BNProjectArrayKey = @"BNProjectArrayKey";
 - (void)addAccount:(BNAccount *)anAccount {
 	if (![anAccount isComplete] || [_accountArray containsObject:anAccount])
 		return;
-	[_accountArray addObject:anAccount];
+	 [_accountArray addObject:anAccount];
 	[self refreshAllAccounts];
 }
 
@@ -42,7 +43,6 @@ NSString * const BNProjectArrayKey = @"BNProjectArrayKey";
 	if (![_accountArray containsObject:anAccount])
 		return;
 	[_accountArray removeObject:anAccount];
-	[self refreshAllAccounts];
 }
 
 - (void)refreshAllAccounts {
@@ -57,6 +57,7 @@ NSString * const BNProjectArrayKey = @"BNProjectArrayKey";
 #pragma mark Feed Operation Delegate Methods
 
 - (void)feedOperation:(BNFeedOperation *)theOperation didSucceedWithProjects:(NSArray *)projectArray {
+	NSLog(@"Posting notification!");
 	[[NSNotificationCenter defaultCenter] postNotificationName:BNStatusesDownloadedNotification object:[theOperation account] userInfo:[NSDictionary dictionaryWithObject:projectArray forKey:BNProjectArrayKey]];
 }
 
@@ -69,7 +70,7 @@ NSString * const BNProjectArrayKey = @"BNProjectArrayKey";
 - (void)_userDefaultsNotificationReceived:(NSNotification *)aNotification {
 	if (_refreshTimer != nil && [_refreshTimer isValid])
 		[_refreshTimer invalidate];
-	_refreshTimer = [NSTimer scheduledTimerWithTimeInterval:[[[NSUserDefaults standardUserDefaults] objectForKey:@"RefreshInterval"] unsignedIntegerValue] block:^{
+	_refreshTimer = [NSTimer scheduledTimerWithTimeInterval:[[[NSUserDefaults standardUserDefaults] objectForKey:@"RefreshInterval"] unsignedIntegerValue] block:^(NSTimer *theTimer){
 		[self refreshAllAccounts];
 	} repeats:YES];
 }

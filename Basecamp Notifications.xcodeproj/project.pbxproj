@@ -10,6 +10,10 @@
 		1DDD58160DA1D0A300B32029 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1DDD58140DA1D0A300B32029 /* MainMenu.xib */; };
 		256AC3DA0F4B6AC300CF3369 /* BNAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 256AC3D90F4B6AC300CF3369 /* BNAppDelegate.m */; };
 		4B2E75F311D4DCFE002A1CFA /* Growl Registration Ticket.growlRegDict in Resources */ = {isa = PBXBuildFile; fileRef = 4B2E75F211D4DCFE002A1CFA /* Growl Registration Ticket.growlRegDict */; };
+		4B2E776511D51950002A1CFA /* BNURLPrefixValueTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B2E776411D51950002A1CFA /* BNURLPrefixValueTransformer.m */; };
+		4B2E783F11D652EB002A1CFA /* NSDictionary+NPAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B2E783E11D652EB002A1CFA /* NSDictionary+NPAdditions.m */; };
+		4B2E78E211D66705002A1CFA /* BNMenuItemRef.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B2E78E111D66705002A1CFA /* BNMenuItemRef.m */; };
+		4B2E791311D66BF7002A1CFA /* NSMenu+NPAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B2E791211D66BF7002A1CFA /* NSMenu+NPAdditions.m */; };
 		4B6A11B311D4449300ABA9D7 /* BNTimeValueTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B6A11B211D4449300ABA9D7 /* BNTimeValueTransformer.m */; };
 		4B6A11B611D4468400ABA9D7 /* BNPreferencesWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B6A11B511D4468400ABA9D7 /* BNPreferencesWindowController.m */; };
 		4B6A122111D452A300ABA9D7 /* NSTimer+NPBlocks.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B6A122011D452A300ABA9D7 /* NSTimer+NPBlocks.m */; };
@@ -81,6 +85,14 @@
 		29B97324FDCFA39411CA2CEA /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		29B97325FDCFA39411CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
 		4B2E75F211D4DCFE002A1CFA /* Growl Registration Ticket.growlRegDict */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = "Growl Registration Ticket.growlRegDict"; path = "Projects/Linebreak/Basecamp Notifications/Growl Registration Ticket.growlRegDict"; sourceTree = DEVELOPER_DIR; };
+		4B2E776311D51950002A1CFA /* BNURLPrefixValueTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BNURLPrefixValueTransformer.h; path = "Projects/Linebreak/Basecamp Notifications/BNURLPrefixValueTransformer.h"; sourceTree = DEVELOPER_DIR; };
+		4B2E776411D51950002A1CFA /* BNURLPrefixValueTransformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BNURLPrefixValueTransformer.m; path = "Projects/Linebreak/Basecamp Notifications/BNURLPrefixValueTransformer.m"; sourceTree = DEVELOPER_DIR; };
+		4B2E783D11D652EB002A1CFA /* NSDictionary+NPAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSDictionary+NPAdditions.h"; path = "Projects/Linebreak/Basecamp Notifications/NSDictionary+NPAdditions.h"; sourceTree = DEVELOPER_DIR; };
+		4B2E783E11D652EB002A1CFA /* NSDictionary+NPAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSDictionary+NPAdditions.m"; path = "Projects/Linebreak/Basecamp Notifications/NSDictionary+NPAdditions.m"; sourceTree = DEVELOPER_DIR; };
+		4B2E78E011D66705002A1CFA /* BNMenuItemRef.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BNMenuItemRef.h; path = "Projects/Linebreak/Basecamp Notifications/BNMenuItemRef.h"; sourceTree = DEVELOPER_DIR; };
+		4B2E78E111D66705002A1CFA /* BNMenuItemRef.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BNMenuItemRef.m; path = "Projects/Linebreak/Basecamp Notifications/BNMenuItemRef.m"; sourceTree = DEVELOPER_DIR; };
+		4B2E791111D66BF7002A1CFA /* NSMenu+NPAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSMenu+NPAdditions.h"; path = "Projects/Linebreak/Basecamp Notifications/NSMenu+NPAdditions.h"; sourceTree = DEVELOPER_DIR; };
+		4B2E791211D66BF7002A1CFA /* NSMenu+NPAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSMenu+NPAdditions.m"; path = "Projects/Linebreak/Basecamp Notifications/NSMenu+NPAdditions.m"; sourceTree = DEVELOPER_DIR; };
 		4B6A11B111D4449300ABA9D7 /* BNTimeValueTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BNTimeValueTransformer.h; path = "Projects/Linebreak/Basecamp Notifications/BNTimeValueTransformer.h"; sourceTree = DEVELOPER_DIR; };
 		4B6A11B211D4449300ABA9D7 /* BNTimeValueTransformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BNTimeValueTransformer.m; path = "Projects/Linebreak/Basecamp Notifications/BNTimeValueTransformer.m"; sourceTree = DEVELOPER_DIR; };
 		4B6A11B411D4468400ABA9D7 /* BNPreferencesWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BNPreferencesWindowController.h; path = "Projects/Linebreak/Basecamp Notifications/BNPreferencesWindowController.h"; sourceTree = DEVELOPER_DIR; };
@@ -167,6 +179,8 @@
 				AD4FB5D7112625C200E10C2A /* BNStatus.m */,
 				AD4FB5D9112625C800E10C2A /* BNProject.h */,
 				AD4FB5DA112625C800E10C2A /* BNProject.m */,
+				4B2E78E011D66705002A1CFA /* BNMenuItemRef.h */,
+				4B2E78E111D66705002A1CFA /* BNMenuItemRef.m */,
 				AD45A5581128A843006209D2 /* BNAccount.h */,
 				AD45A5591128A843006209D2 /* BNAccount.m */,
 				ADB50D661128AC3300A8F2D4 /* EMKeychain.h */,
@@ -193,10 +207,16 @@
 				AD9C86781130EC9F00C395B4 /* NSString+NPWidthTruncation.m */,
 				4B6A11B111D4449300ABA9D7 /* BNTimeValueTransformer.h */,
 				4B6A11B211D4449300ABA9D7 /* BNTimeValueTransformer.m */,
+				4B2E776311D51950002A1CFA /* BNURLPrefixValueTransformer.h */,
+				4B2E776411D51950002A1CFA /* BNURLPrefixValueTransformer.m */,
 				4B6A11B411D4468400ABA9D7 /* BNPreferencesWindowController.h */,
 				4B6A11B511D4468400ABA9D7 /* BNPreferencesWindowController.m */,
+				4B2E783D11D652EB002A1CFA /* NSDictionary+NPAdditions.h */,
+				4B2E783E11D652EB002A1CFA /* NSDictionary+NPAdditions.m */,
 				4B6A137211D4626500ABA9D7 /* NSSound+NPSystemSounds.h */,
 				4B6A137311D4626500ABA9D7 /* NSSound+NPSystemSounds.m */,
+				4B2E791111D66BF7002A1CFA /* NSMenu+NPAdditions.h */,
+				4B2E791211D66BF7002A1CFA /* NSMenu+NPAdditions.m */,
 				4B6A13E411D4D74E00ABA9D7 /* BWToolkit */,
 			);
 			name = Classes;
@@ -326,6 +346,7 @@
 				8D11072C0486CEB800E47090 /* Sources */,
 				8D11072E0486CEB800E47090 /* Frameworks */,
 				4B6A140911D4DA1600ABA9D7 /* Copy Frameworks */,
+				4B2E769111D4F139002A1CFA /* Sign Binary */,
 			);
 			buildRules = (
 			);
@@ -380,6 +401,23 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		4B2E769111D4F139002A1CFA /* Sign Binary */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Sign Binary";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "codesign -f -s \"Basecamp Notifications Code Signing Certificate\" \"${BUILT_PRODUCTS_DIR}/${WRAPPER_NAME}/\"";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		8D11072C0486CEB800E47090 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -407,6 +445,10 @@
 				4B6A13E111D4D74900ABA9D7 /* BWSelectableToolbarHelper.m in Sources */,
 				4B6A13F011D4D78700ABA9D7 /* NSWindow+BWAdditions.m in Sources */,
 				4B6A141811D4DB4B00ABA9D7 /* BNUserNotificationController.m in Sources */,
+				4B2E776511D51950002A1CFA /* BNURLPrefixValueTransformer.m in Sources */,
+				4B2E783F11D652EB002A1CFA /* NSDictionary+NPAdditions.m in Sources */,
+				4B2E78E211D66705002A1CFA /* BNMenuItemRef.m in Sources */,
+				4B2E791311D66BF7002A1CFA /* NSMenu+NPAdditions.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

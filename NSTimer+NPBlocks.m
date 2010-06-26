@@ -14,15 +14,20 @@
 
 @implementation NSTimer (NPBlocks)
 
-+ (NSTimer *)scheduledTimerWithTimeInterval:(NSTimeInterval)seconds block:(void (^)())theBlock repeats:(BOOL)repeats {
-	return [NSTimer scheduledTimerWithTimeInterval:seconds target:self selector:@selector(_npTimerBlocksCallback:) userInfo:[[theBlock copy] autorelease] repeats:repeats];
++ (NSTimer *)timerWithTimeInterval:(NSTimeInterval)seconds block:(void (^)(NSTimer *timer))theBlock repeats:(BOOL)repeats {
+	return [self timerWithTimeInterval:seconds target:self selector:@selector(npTimerBlocksCallback:) userInfo:[[theBlock copy] autorelease] repeats:repeats];
 }
 
-+ (void)_npTimerBlocksCallback:(NSTimer *)theTimer {
-	void (^my_block)(void);
++ (NSTimer *)scheduledTimerWithTimeInterval:(NSTimeInterval)seconds block:(void (^)(NSTimer *timer))theBlock repeats:(BOOL)repeats {
+	return [self scheduledTimerWithTimeInterval:seconds target:self selector:@selector(npTimerBlocksCallback:) userInfo:[[theBlock copy] autorelease] repeats:repeats];
+}
+
++ (void)npTimerBlocksCallback:(NSTimer *)theTimer {
+	void (^my_block)(NSTimer *timer);
 	my_block = [theTimer userInfo];
 	if (my_block != nil)
-		my_block();
+		my_block(theTimer);
 }
+
 
 @end
