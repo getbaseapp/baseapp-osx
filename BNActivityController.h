@@ -32,6 +32,7 @@ extern NSString * const BNProjectArrayKey;
 - (BNAccount *)accountAtIndex:(NSUInteger)index;
 - (NSUInteger)accountCount;
 - (void)removeAccount:(BNAccount *)anAccount;
+- (BOOL)hasAccount:(BNAccount *)anAccount;
 - (void)checkAccountCredentials:(BNAccount *)theAccount delegate:(id<BNAccountCheckingDelegate>)delegate;
 
 @end

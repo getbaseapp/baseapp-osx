@@ -57,11 +57,18 @@
 - (IBAction)addAccountPressed:(id)sender {
 	if ([[userField stringValue] length] > 0 && [[passwordField stringValue] length] > 0 && [[urlPrefixField stringValue] length] > 0) {
 		BNURLPrefixValueTransformer *transformer = [[BNURLPrefixValueTransformer alloc] init];
-		[[BNActivityController sharedController] checkAccountCredentials:[BNAccount accountWithUser:[userField stringValue] password:[passwordField stringValue] URL:[transformer transformedValue:[urlPrefixField stringValue]]] delegate:self];
+		BNAccount *theAccount = [BNAccount accountWithUser:[userField stringValue] password:[passwordField stringValue] URL:[transformer transformedValue:[urlPrefixField stringValue]]];
 		[transformer release];
-		[loginSpinner setHidden:NO];
-		[loginSpinner startAnimation:self];
-		[loginFailedLabel setHidden:YES];
+		if (![[BNActivityController sharedController] hasAccount:theAccount]) {
+			[[BNActivityController sharedController] checkAccountCredentials:theAccount delegate:self];
+			[loginSpinner setHidden:NO];
+			[loginSpinner startAnimation:self];
+			[accountInfoLabel setHidden:YES];
+		} else {
+			[accountInfoLabel setHidden:NO];
+			[accountInfoLabel setStringValue:@"Account already added"];
+			NSBeep();
+		}
 	}
 }
 
@@ -78,7 +85,8 @@
 		[urlPrefixField setStringValue:@""];
 		[addAccountSheet makeFirstResponder:urlPrefixField];
 	} else {
-		[loginFailedLabel setHidden:NO];
+		[accountInfoLabel setStringValue:@"Login failed"];
+		[accountInfoLabel setHidden:NO];
 		NSBeep();
 	}
 }

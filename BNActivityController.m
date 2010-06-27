@@ -67,6 +67,10 @@ NSString * const BNProjectArrayKey = @"BNProjectArrayKey";
 	[_accountArray removeObject:anAccount];
 }
 
+- (BOOL)hasAccount:(BNAccount *)anAccount {
+	return [_accountArray containsObject:anAccount];
+}
+
 - (NSUInteger)accountCount {
 	return [_accountArray count];
 }
@@ -118,11 +122,9 @@ NSString * const BNProjectArrayKey = @"BNProjectArrayKey";
 	NSLog(@"%@", theError);
 	
 	if ([_checkAccountDict containsKey:[theOperation account]]) {
-		if ([theError code] == NSURLErrorUserAuthenticationRequired) {
-			id<BNAccountCheckingDelegate> theDelegate = [_checkAccountDict objectForKey:[theOperation account]];
-			if (theDelegate != nil && [theDelegate respondsToSelector:@selector(checkedCredentialsForAccount:success:)])
-				[theDelegate checkedCredentialsForAccount:[theOperation account] success:NO];
-		}
+		id<BNAccountCheckingDelegate> theDelegate = [_checkAccountDict objectForKey:[theOperation account]];
+		if (theDelegate != nil && [theDelegate respondsToSelector:@selector(checkedCredentialsForAccount:success:)])
+			[theDelegate checkedCredentialsForAccount:[theOperation account] success:NO];
 		[_checkAccountDict removeObjectForKey:[theOperation account]];
 	}
 }

@@ -22,7 +22,7 @@
 	IBOutlet NSTextField *passwordField;
 	IBOutlet NSTextField *urlPrefixField;
 	IBOutlet NSProgressIndicator *loginSpinner;
-	IBOutlet NSTextField *loginFailedLabel;
+	IBOutlet NSTextField *accountInfoLabel;
 }
 
 @property (retain, readonly) NSArray *songNamesArray;
