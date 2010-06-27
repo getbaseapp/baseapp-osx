@@ -7,9 +7,10 @@
 //
 
 #import <Cocoa/Cocoa.h>
+#import "BNActivityController.h"
 
 @class BNAccount;
-@interface BNPreferencesWindowController : NSWindowController <NSTableViewDataSource, NSTableViewDelegate> {
+@interface BNPreferencesWindowController : NSWindowController <NSTableViewDataSource, NSTableViewDelegate, BNAccountCheckingDelegate> {
 	NSArray *songNamesArray;
 	NSArray *refreshStrings;
 
@@ -20,6 +21,8 @@
 	IBOutlet NSTextField *userField;
 	IBOutlet NSTextField *passwordField;
 	IBOutlet NSTextField *urlPrefixField;
+	IBOutlet NSProgressIndicator *loginSpinner;
+	IBOutlet NSTextField *loginFailedLabel;
 }
 
 @property (retain, readonly) NSArray *songNamesArray;

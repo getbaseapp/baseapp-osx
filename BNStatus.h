@@ -16,7 +16,7 @@ typedef enum _BNStatusType {
 	BNStatusTypeUnknown = 4
 } BNStatusType;
 
-@interface BNStatus : NSObject {
+@interface BNStatus : NSObject<NSCoding> {
 	NSString *creator;
 	NSString *title;
 	NSDate *date;

@@ -16,6 +16,13 @@
 @property (readwrite) BNStatusType type;
 @end
 
+static NSString * const BNStatusCreatorKey = @"BNStatusCreatorKey";
+static NSString * const BNStatusTitleKey = @"BNStatusTitleKey";
+static NSString * const BNStatusDateKey = @"BNStatusDateKey";
+static NSString * const BNStatusURLKey = @"BNStatusURLKey";
+static NSString * const BNStatusTypeKey = @"BNStatusTypeKey";
+static NSString * const BNStatusReadKey = @"BNStatusReadKey";
+
 @implementation BNStatus
 @synthesize creator, title, URL, date, type, read;
 
@@ -50,6 +57,33 @@
 
 - (NSString *)description {
 	return [NSString stringWithFormat:@"%@ (%@)", [self title], [self isRead] ? @"READ" : @"UNREAD"];
+}
+
+#pragma mark NSCoding Methods
+
+- (id)initWithCoder:(NSCoder *)aDecoder {
+	if (self = [super init]) {
+		if ([aDecoder allowsKeyedCoding]) {
+			self.title = [aDecoder decodeObjectForKey:BNStatusTitleKey];
+			self.creator = [aDecoder decodeObjectForKey:BNStatusCreatorKey];
+			self.URL = [aDecoder decodeObjectForKey:BNStatusURLKey];
+			self.date = [aDecoder decodeObjectForKey:BNStatusDateKey];
+			self.type = [[aDecoder decodeObjectForKey:BNStatusTypeKey] integerValue];
+			self.read = [[aDecoder decodeObjectForKey:BNStatusReadKey] boolValue];
+		}
+	}
+	return self;
+}
+
+- (void)encodeWithCoder:(NSCoder *)aCoder {
+	if ([aCoder allowsKeyedCoding]) {
+		[aCoder encodeObject:self.title forKey:BNStatusTitleKey];
+		[aCoder encodeObject:self.creator forKey:BNStatusCreatorKey];
+		[aCoder encodeObject:self.URL forKey:BNStatusURLKey];
+		[aCoder encodeObject:self.date forKey:BNStatusDateKey];
+		[aCoder encodeObject:[NSNumber numberWithInteger:self.type] forKey:BNStatusTypeKey];
+		[aCoder encodeObject:[NSNumber numberWithBool:self.read] forKey:BNStatusReadKey];
+	}
 }
 
 - (void)dealloc {

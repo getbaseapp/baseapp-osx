@@ -9,7 +9,7 @@
 #import <Cocoa/Cocoa.h>
 
 @class BNAccount;
-@interface BNProject : NSObject <NSCopying> {
+@interface BNProject : NSObject <NSCopying, NSCoding> {
 	NSArray *latestStatuses;
 	NSString *name;
 	NSString *companyName;

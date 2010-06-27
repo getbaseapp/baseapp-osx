@@ -124,6 +124,7 @@
 	NSData *authData = [authStr dataUsingEncoding:NSASCIIStringEncoding];
 	NSString *authValue = [NSString stringWithFormat:@"Basic %@", [authData base64EncodingWithLineLength:80]];
 	[theRequest setValue:authValue forHTTPHeaderField:@"Authorization"];
+	[theRequest setCachePolicy:NSURLRequestReloadIgnoringLocalCacheData];
 	return theRequest;
 }
 
@@ -163,10 +164,16 @@
 	NSData *projXMLRetData = [NSURLConnection sendSynchronousRequest:[self _requestForURL:[NSURL URLWithString:projectsURL] account:theAccount] returningResponse:nil error:&tempError];
 	
 	NSString *testString = [[NSString alloc] initWithData:projXMLRetData encoding:NSUTF8StringEncoding];
+	NSLog(@"\"%@\"", testString);
+	if ([testString isEqualToString:@"HTTP Basic: Access denied.\n"] || [testString isEqualToString:@" "]) {
+		*theError = [NSError errorWithDomain:NSURLErrorDomain code:NSURLErrorUserAuthenticationRequired userInfo:[NSDictionary dictionaryWithObjectsAndKeys:@"Login failed", NSLocalizedDescriptionKey, nil]];
+		return nil;
+	}
 	if ([testString rangeOfString:@"<error>The API is not available to this account</error>"].location != NSNotFound) {
 		NSLog(@"API Not supported Error!");
 		return nil;
 	}
+	[testString release];
 	if (projXMLRetData == nil) {
 		NSLog(@"projXML returned nil");
 		*theError = [NSError errorWithDomain:NSURLErrorDomain code:NSURLErrorBadServerResponse userInfo:nil];

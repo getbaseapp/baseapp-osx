@@ -8,6 +8,11 @@
 
 #import "BNProject.h"
 
+static NSString * const BNProjectNameKey = @"BNProjectNameKey";
+static NSString * const BNProjectCompanyNameKey = @"BNProjectCompanyNameKey";
+static NSString * const BNProjectURLKey = @"BNProjectURLKey";
+static NSString * const BNProjectAccountKey = @"BNProjectAccountKey";
+
 @interface BNProject ()
 @property (retain, readwrite) NSString *name;
 @property (retain, readwrite) NSString *companyName;
@@ -55,6 +60,29 @@
 	BNProject *otherProject = [[[self class] allocWithZone:zone] initWithName:[self name] companyName:[self companyName] URL:[self URL] account:[self account]];
 	[otherProject setLatestStatuses:[self latestStatuses]];
 	return otherProject;
+}
+
+#pragma mark NSCoding Methods
+
+- (id)initWithCoder:(NSCoder *)decoder {
+	if (self = [super init]) {
+		if ([decoder allowsKeyedCoding]) {
+			self.name = [decoder decodeObjectForKey:BNProjectNameKey];
+			self.companyName = [decoder decodeObjectForKey:BNProjectCompanyNameKey];
+			self.URL = [decoder decodeObjectForKey:BNProjectURLKey];
+			self.account = [decoder decodeObjectForKey:BNProjectAccountKey];
+		}
+	}
+	return self;
+}
+
+- (void)encodeWithCoder:(NSCoder *)aCoder {
+	if ([aCoder allowsKeyedCoding]) {
+		[aCoder encodeObject:self.name forKey:BNProjectNameKey];
+		[aCoder encodeObject:self.companyName forKey:BNProjectCompanyNameKey];
+		[aCoder encodeObject:self.URL forKey:BNProjectURLKey];
+		[aCoder encodeObject:self.account forKey:BNProjectAccountKey];
+	}
 }
 
 - (void)dealloc {

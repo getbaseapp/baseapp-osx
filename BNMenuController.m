@@ -33,6 +33,7 @@ NSString * const BNNewStatusesAddedNotification = @"BNNewStatusesAddedNotificati
 - (NSInteger)_menuIndexForProject:(BNProject *)theProject;
 - (NSMenuItem *)_newItemForStatus:(BNStatus *)currentStatus;
 - (void)_receivedNotification:(NSNotification *)aNotification;
+- (void)_terminatingNotificationReceived:(NSNotification *)aNotification;
 - (void)_doNotificationIfNecessary;
 @end
 
@@ -53,6 +54,7 @@ NSString * const BNNewStatusesAddedNotification = @"BNNewStatusesAddedNotificati
 		preferencesWindow = [[BNPreferencesWindowController alloc] initWithWindowNibName:@"BNPreferencesWindowController"];
 		
 		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(_receivedNotification:) name:BNStatusesDownloadedNotification object:nil];
+		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(_terminatingNotificationReceived:) name:NSApplicationWillTerminateNotification object:NSApp];
 		
 		NSMenu *theMenu = [[NSMenu alloc] init];
 		
@@ -74,6 +76,11 @@ NSString * const BNNewStatusesAddedNotification = @"BNNewStatusesAddedNotificati
 		[theMenu release];
 		_projectDictionary = [[NSMutableDictionary alloc] init];
 		_sortedProjects = [[NSMutableArray alloc] init];
+		NSArray *cachedProjects = [NSKeyedUnarchiver unarchiveObjectWithFile:[self pathForDataFile]];
+		NSLog(@"%@", cachedProjects);
+		//if (cachedProjects != nil && [cachedProjects count] > 0)
+		//	[[NSNotificationCenter defaultCenter] postNotificationName:BNStatusesDownloadedNotification object:self userInfo:[NSDictionary dictionaryWithObjectsAndKeys:cachedProjects, BNProjectArrayKey, nil]];
+		
 	}
 	return self;
 }
@@ -293,6 +300,24 @@ NSString * const BNNewStatusesAddedNotification = @"BNNewStatusesAddedNotificati
 		}
 		[self _doNotificationIfNecessary];
 	}
+}
+
+- (NSString *)pathForDataFile {
+	NSFileManager *fileManager = [NSFileManager defaultManager];
+    
+	NSString *folder = @"~/Library/Application Support/Basecamp Notifications/";
+	folder = [folder stringByExpandingTildeInPath];
+	
+	if ([fileManager fileExistsAtPath:folder] == NO) {
+		[fileManager createDirectoryAtPath:folder withIntermediateDirectories:YES attributes:nil error:nil];
+	}
+    
+	NSString *fileName = @"CachedStatuses.bndata";
+	return [folder stringByAppendingPathComponent:fileName];    
+}
+
+- (void)_terminatingNotificationReceived:(NSNotification *)aNotification {
+	[NSKeyedArchiver archiveRootObject:_sortedProjects toFile:[self pathForDataFile]];
 }
 
 - (NSMenuItem *)_newItemForStatus:(BNStatus *)currentStatus {

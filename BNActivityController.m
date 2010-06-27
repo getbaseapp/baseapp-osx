@@ -12,6 +12,7 @@
 #import "BNStatus.h"
 #import "BNFeedOperation.h"
 #import "NSTimer+NPBlocks.h"
+#import "NSDictionary+NPAdditions.h"
 
 NSString * const BNStatusesDownloadedNotification = @"BNStatusesDownloadedNotification";
 NSString * const BNProjectArrayKey = @"BNProjectArrayKey";
@@ -30,7 +31,7 @@ NSString * const BNProjectArrayKey = @"BNProjectArrayKey";
 		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(_userDefaultsNotificationReceived:) name:NSUserDefaultsDidChangeNotification object:[NSUserDefaults standardUserDefaults]];
 		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(_terminationNotificationReceived:) name:NSApplicationWillTerminateNotification object:NSApp];
 		[self _userDefaultsNotificationReceived:nil];
-		
+		_checkAccountDict = [[NSMutableDictionary alloc] init];
 		_accountArray = [[NSKeyedUnarchiver unarchiveObjectWithFile:[self pathForDataFile]] mutableCopy];
 		if (_accountArray == nil)
 			_accountArray = [[NSMutableArray alloc] init];
@@ -41,6 +42,15 @@ NSString * const BNProjectArrayKey = @"BNProjectArrayKey";
 		}
 	}
 	return self;
+}
+
+- (void)checkAccountCredentials:(BNAccount *)theAccount delegate:(id<BNAccountCheckingDelegate>)delegate {
+	if (theAccount == nil || ![theAccount isComplete] || delegate == nil)
+		return;
+	BNFeedOperation *feedOperation = [[BNFeedOperation alloc] initWithAccount:theAccount delegate:self];
+	[_feedQueue addOperation:feedOperation];
+	[feedOperation release];
+	[_checkAccountDict setObject:delegate forKey:theAccount];
 }
 
 - (void)addAccount:(BNAccount *)anAccount {
@@ -94,11 +104,27 @@ NSString * const BNProjectArrayKey = @"BNProjectArrayKey";
 #pragma mark Feed Operation Delegate Methods
 
 - (void)feedOperation:(BNFeedOperation *)theOperation didSucceedWithProjects:(NSArray *)projectArray {
-	[[NSNotificationCenter defaultCenter] postNotificationName:BNStatusesDownloadedNotification object:[theOperation account] userInfo:[NSDictionary dictionaryWithObject:projectArray forKey:BNProjectArrayKey]];
+	if ([_checkAccountDict containsKey:[theOperation account]]) {
+		id<BNAccountCheckingDelegate> theDelegate = [_checkAccountDict objectForKey:[theOperation account]];
+		if (theDelegate != nil && [theDelegate respondsToSelector:@selector(checkedCredentialsForAccount:success:)])
+			[theDelegate checkedCredentialsForAccount:[theOperation account] success:YES];
+		[_checkAccountDict removeObjectForKey:[theOperation account]];
+	} else {
+		[[NSNotificationCenter defaultCenter] postNotificationName:BNStatusesDownloadedNotification object:[theOperation account] userInfo:[NSDictionary dictionaryWithObject:projectArray forKey:BNProjectArrayKey]];
+	}
 }
 
 - (void)feedOperation:(BNFeedOperation *)theOperation didFailWithError:(NSError *)theError {
 	NSLog(@"%@", theError);
+	
+	if ([_checkAccountDict containsKey:[theOperation account]]) {
+		if ([theError code] == NSURLErrorUserAuthenticationRequired) {
+			id<BNAccountCheckingDelegate> theDelegate = [_checkAccountDict objectForKey:[theOperation account]];
+			if (theDelegate != nil && [theDelegate respondsToSelector:@selector(checkedCredentialsForAccount:success:)])
+				[theDelegate checkedCredentialsForAccount:[theOperation account] success:NO];
+		}
+		[_checkAccountDict removeObjectForKey:[theOperation account]];
+	}
 }
 
 #pragma mark Notifications

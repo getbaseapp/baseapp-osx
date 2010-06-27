@@ -13,10 +13,16 @@ extern NSString * const BNProjectArrayKey;
 #import <Cocoa/Cocoa.h>
 @class BNAccount;
 
+@protocol BNAccountCheckingDelegate <NSObject>
+- (void)checkedCredentialsForAccount:(BNAccount *)theAccount success:(BOOL)success;
+@end
+
+
 @interface BNActivityController : NSObject {
 	NSMutableArray *_accountArray;
 	NSOperationQueue *_feedQueue;
 	NSTimer *_refreshTimer;
+	NSMutableDictionary *_checkAccountDict;
 }
 
 + (BNActivityController *)sharedController;
@@ -26,5 +32,6 @@ extern NSString * const BNProjectArrayKey;
 - (BNAccount *)accountAtIndex:(NSUInteger)index;
 - (NSUInteger)accountCount;
 - (void)removeAccount:(BNAccount *)anAccount;
+- (void)checkAccountCredentials:(BNAccount *)theAccount delegate:(id<BNAccountCheckingDelegate>)delegate;
 
 @end

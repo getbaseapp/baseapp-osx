@@ -106,6 +106,9 @@ static NSString * const BNAccountsCodingKeyURL = @"BNAccountsCodingKeyURL";
 	if (self = [super init]) {
 		[self setUser:[decoder decodeObjectForKey:BNAccountsCodingKeyUser]];
 		[self setURL:[decoder decodeObjectForKey:BNAccountsCodingKeyURL]];
+		EMGenericKeychainItem *theItem = [EMGenericKeychainItem genericKeychainItemForService:[NSString stringWithFormat:@"Basecamp: %@", [[self URL] absoluteString]] withUsername:[self user]];
+		if (theItem != nil)
+			self.password = [theItem password];
 	}
 	return self;
 }

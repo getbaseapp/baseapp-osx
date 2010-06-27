@@ -9,7 +9,6 @@
 #import "BNPreferencesWindowController.h"
 #import "NSSound+NPSystemSounds.h"
 #import "BNAccount.h"
-#import "BNActivityController.h"
 #import "BNMenuController.h"
 #import "NSDictionary+NPAdditions.h"
 #import <Sparkle/Sparkle.h>
@@ -32,7 +31,7 @@
 }
 
 - (void)awakeFromNib {
-
+	
 }	
 
 - (IBAction)soundPopUpTriggered:(id)sender {
@@ -58,8 +57,19 @@
 - (IBAction)addAccountPressed:(id)sender {
 	if ([[userField stringValue] length] > 0 && [[passwordField stringValue] length] > 0 && [[urlPrefixField stringValue] length] > 0) {
 		BNURLPrefixValueTransformer *transformer = [[BNURLPrefixValueTransformer alloc] init];
-		[[BNActivityController sharedController] addAccount:[BNAccount accountWithUser:[userField stringValue] password:[passwordField stringValue] URL:[transformer transformedValue:[urlPrefixField stringValue]]]];
+		[[BNActivityController sharedController] checkAccountCredentials:[BNAccount accountWithUser:[userField stringValue] password:[passwordField stringValue] URL:[transformer transformedValue:[urlPrefixField stringValue]]] delegate:self];
 		[transformer release];
+		[loginSpinner setHidden:NO];
+		[loginSpinner startAnimation:self];
+		[loginFailedLabel setHidden:YES];
+	}
+}
+
+- (void)checkedCredentialsForAccount:(BNAccount *)theAccount success:(BOOL)success {
+	[loginSpinner setHidden:YES];
+	[loginSpinner stopAnimation:self];
+	if (success) {
+		[[BNActivityController sharedController] addAccount:theAccount];
 		[addAccountSheet orderOut:nil];
 		[NSApp endSheet:addAccountSheet];
 		[accountTableView reloadData];
@@ -67,6 +77,9 @@
 		[passwordField setStringValue:@""];
 		[urlPrefixField setStringValue:@""];
 		[addAccountSheet makeFirstResponder:urlPrefixField];
+	} else {
+		[loginFailedLabel setHidden:NO];
+		NSBeep();
 	}
 }
 

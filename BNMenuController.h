@@ -27,5 +27,6 @@ extern NSString * const BNNewStatusesAddedNotification;
 - (void)updateProject:(BNProject *)aProject;
 - (void)removeProject:(BNProject *)aProject;
 - (void)removeProjectsForAccount:(BNAccount *)theAccount;
+- (NSString *)pathForDataFile;
 
 @end

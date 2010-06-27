@@ -13,7 +13,6 @@
 	NSString *user;
 	NSString *password;
 	NSURL *URL;
-	NSString *URLPrefix;
 	BOOL free;
 }
 
