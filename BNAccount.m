@@ -64,6 +64,12 @@ static NSString * const BNAccountsCodingKeyURL = @"BNAccountsCodingKeyURL";
 	return self.user;
 }
 
+- (BOOL)isEqual:(BNAccount *)object {
+	if (![object isKindOfClass:[BNAccount class]])
+		return NO;
+	return [self.user isEqual:object.user] && [self.URL isEqual:object.URL] && [self.password isEqual:object.password];
+}
+
 #pragma mark Accessors
 
 - (void)setUser:(NSString *)newUser {

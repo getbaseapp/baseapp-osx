@@ -164,7 +164,6 @@
 	NSData *projXMLRetData = [NSURLConnection sendSynchronousRequest:[self _requestForURL:[NSURL URLWithString:projectsURL] account:theAccount] returningResponse:nil error:&tempError];
 	
 	NSString *testString = [[NSString alloc] initWithData:projXMLRetData encoding:NSUTF8StringEncoding];
-	NSLog(@"\"%@\"", testString);
 	if ([testString isEqualToString:@"HTTP Basic: Access denied.\n"] || [testString isEqualToString:@" "]) {
 		*theError = [NSError errorWithDomain:NSURLErrorDomain code:NSURLErrorUserAuthenticationRequired userInfo:[NSDictionary dictionaryWithObjectsAndKeys:@"Login failed", NSLocalizedDescriptionKey, nil]];
 		return nil;

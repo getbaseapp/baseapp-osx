@@ -77,9 +77,8 @@ NSString * const BNNewStatusesAddedNotification = @"BNNewStatusesAddedNotificati
 		_projectDictionary = [[NSMutableDictionary alloc] init];
 		_sortedProjects = [[NSMutableArray alloc] init];
 		NSArray *cachedProjects = [NSKeyedUnarchiver unarchiveObjectWithFile:[self pathForDataFile]];
-		NSLog(@"%@", cachedProjects);
-		//if (cachedProjects != nil && [cachedProjects count] > 0)
-		//	[[NSNotificationCenter defaultCenter] postNotificationName:BNStatusesDownloadedNotification object:self userInfo:[NSDictionary dictionaryWithObjectsAndKeys:cachedProjects, BNProjectArrayKey, nil]];
+		if (cachedProjects != nil && [cachedProjects count] > 0)
+			[[NSNotificationCenter defaultCenter] postNotificationName:BNStatusesDownloadedNotification object:self userInfo:[NSDictionary dictionaryWithObjectsAndKeys:cachedProjects, BNProjectArrayKey, nil]];
 		
 	}
 	return self;

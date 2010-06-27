@@ -12,6 +12,7 @@ static NSString * const BNProjectNameKey = @"BNProjectNameKey";
 static NSString * const BNProjectCompanyNameKey = @"BNProjectCompanyNameKey";
 static NSString * const BNProjectURLKey = @"BNProjectURLKey";
 static NSString * const BNProjectAccountKey = @"BNProjectAccountKey";
+static NSString * const BNProjectLatestStatusesKey = @"BNProjectLatestStatusesKey";
 
 @interface BNProject ()
 @property (retain, readwrite) NSString *name;
@@ -71,6 +72,7 @@ static NSString * const BNProjectAccountKey = @"BNProjectAccountKey";
 			self.companyName = [decoder decodeObjectForKey:BNProjectCompanyNameKey];
 			self.URL = [decoder decodeObjectForKey:BNProjectURLKey];
 			self.account = [decoder decodeObjectForKey:BNProjectAccountKey];
+			self.latestStatuses = [decoder decodeObjectForKey:BNProjectLatestStatusesKey];
 		}
 	}
 	return self;
@@ -82,6 +84,7 @@ static NSString * const BNProjectAccountKey = @"BNProjectAccountKey";
 		[aCoder encodeObject:self.companyName forKey:BNProjectCompanyNameKey];
 		[aCoder encodeObject:self.URL forKey:BNProjectURLKey];
 		[aCoder encodeObject:self.account forKey:BNProjectAccountKey];
+		[aCoder encodeObject:self.latestStatuses forKey:BNProjectLatestStatusesKey];
 	}
 }
 

@@ -43,7 +43,9 @@ static NSImage *_clickedImage = nil;
 		[_statusItem setAlternateImage:_clickedImage];
 		[_statusItem setMenu:[[BNMenuController sharedController] menu]];
 		[_statusItem setHighlightMode:YES];
-		[self setHasUnread:NO];
+		//As long as nothing has changed it, set the right image
+		if (self.hasUnread == NO)
+			[self setHasUnread:NO];
 	}
 	return self;
 }
