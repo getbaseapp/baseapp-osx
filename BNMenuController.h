@@ -8,16 +8,17 @@
 
 #import <Cocoa/Cocoa.h>
 
-//BNNewStatusCountKey --> NSNumber
-//BNProjectKey --> BNProject
+//@"BNNewStatusesArray" --> New BNStatuses
 extern NSString * const BNNewStatusesAddedNotification;
 
 @class BNProject, BNAccount, BNPreferencesWindowController;
-@interface BNMenuController : NSObject {
+@interface BNMenuController : NSObject<NSMenuDelegate> {
 	NSMutableArray *_sortedProjects;
-	NSMutableDictionary *_projectDictionary; //BNProject --> NSMutableDictionary (NSMenuItem --> BNStatus/NSNull)
+	NSMutableDictionary *_projectDictionary; //BNProject --> NSMutableDictionary (BNMenuItemRef --> BNStatus/NSNull)
 	NSMenu *menu;
 	BNPreferencesWindowController *preferencesWindow;
+	NSMenuItem *_markAllItem;
+	NSMenuItem *_markAllSepItem;
 }
 
 @property (retain, readonly) NSMenu *menu;
@@ -28,5 +29,8 @@ extern NSString * const BNNewStatusesAddedNotification;
 - (void)removeProject:(BNProject *)aProject;
 - (void)removeProjectsForAccount:(BNAccount *)theAccount;
 - (NSString *)pathForDataFile;
+- (void)markAllItemsAsRead;
+- (void)markProjectAsRead:(BNProject *)aProject;
+- (BOOL)allStatusesAreRead;
 
 @end

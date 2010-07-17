@@ -94,14 +94,14 @@ NSString * const BNProjectArrayKey = @"BNProjectArrayKey";
 - (NSString *)pathForDataFile {
 	NSFileManager *fileManager = [NSFileManager defaultManager];
     
-	NSString *folder = @"~/Library/Application Support/Basecamp Notifications/";
+	NSString *folder = @"~/Library/Application Support/Flare/";
 	folder = [folder stringByExpandingTildeInPath];
 	
 	if ([fileManager fileExistsAtPath:folder] == NO) {
 		[fileManager createDirectoryAtPath:folder withIntermediateDirectories:YES attributes:nil error:nil];
 	}
     
-	NSString *fileName = @"Accounts.bndata";
+	NSString *fileName = @"Accounts.flaredata";
 	return [folder stringByAppendingPathComponent:fileName];    
 }
 

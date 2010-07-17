@@ -16,14 +16,24 @@
 - (id)init {
 	if (self = [super init]) {
 		[[NSNotificationCenter defaultCenter] addObserverForName:BNNewStatusesAddedNotification object:nil queue:nil usingBlock:^(NSNotification *theNotification){
-			if ([[NSUserDefaults standardUserDefaults] boolForKey:@"GrowlNotificationsEnabled"]) {
-				[GrowlApplicationBridge notifyWithTitle:[[[theNotification userInfo] objectForKey:@"BNProjectKey"] description] 
-											description:[NSString stringWithFormat:@"%i new status%@ have been added", [[[theNotification userInfo] objectForKey:@"BNNewStatusCountKey"] integerValue], ([[[theNotification userInfo] objectForKey:@"BNNewStatusCountKey"] integerValue] == 1 ? @"" : @"es")] 
-									   notificationName:@"BNHasUnreadStatusesGrowlNotification" iconData:nil priority:0 isSticky:NO clickContext:nil];
-			}
+			NSArray *statusesArray = [[theNotification userInfo] objectForKey:@"BNNewStatusesArray"];
 			if ([[NSUserDefaults standardUserDefaults] boolForKey:@"SoundNotificationsEnabled"]) {
 				[[NSSound soundNamed:[[NSUserDefaults standardUserDefaults] stringForKey:@"SelectedSongNotificationName"]] play];
 			}
+			
+			if ([[NSUserDefaults standardUserDefaults] boolForKey:@"GrowlNotificationsEnabled"]) {
+				
+				if ([statusesArray count] > 1) {
+					[GrowlApplicationBridge notifyWithTitle:[[theNotification object] description] 
+												description:[NSString stringWithFormat:@"%i new statuses have been added", [statusesArray count]] 
+										   notificationName:@"BNHasUnreadStatusesGrowlNotification" iconData:nil priority:0 isSticky:NO clickContext:nil];
+				} else if ([statusesArray count] == 1) {
+					[GrowlApplicationBridge notifyWithTitle:[[theNotification object] description] 
+												description:[[statusesArray objectAtIndex:0] title]
+										   notificationName:@"BNHasUnreadStatusesGrowlNotification" iconData:nil priority:0 isSticky:NO clickContext:nil];
+				}
+			}
+			
 		}];
 	}
 	return self;

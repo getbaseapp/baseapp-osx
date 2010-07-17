@@ -7,12 +7,16 @@
 //
 
 #import "BNProject.h"
+#import "BNStatus.h"
+
+NSInteger const BNProjectFreeID = -1337;
 
 static NSString * const BNProjectNameKey = @"BNProjectNameKey";
 static NSString * const BNProjectCompanyNameKey = @"BNProjectCompanyNameKey";
 static NSString * const BNProjectURLKey = @"BNProjectURLKey";
 static NSString * const BNProjectAccountKey = @"BNProjectAccountKey";
 static NSString * const BNProjectLatestStatusesKey = @"BNProjectLatestStatusesKey";
+static NSString * const BNProjectIDKey = @"BNProjectIDKey";
 
 @interface BNProject ()
 @property (retain, readwrite) NSString *name;
@@ -21,7 +25,7 @@ static NSString * const BNProjectLatestStatusesKey = @"BNProjectLatestStatusesKe
 @end
 
 @implementation BNProject
-@synthesize name, companyName, latestStatuses, URL, account;
+@synthesize name, companyName, latestStatuses, URL, account, projectID;
 
 - (id)init {
 	return [self initWithName:@"" companyName:@"" URL:nil account:nil];
@@ -44,7 +48,10 @@ static NSString * const BNProjectLatestStatusesKey = @"BNProjectLatestStatusesKe
 - (BOOL)isEqual:(BNProject *)otherProject {
 	if (![otherProject isKindOfClass:[BNProject class]])
 		return NO;
-	return [[self name] isEqual:[otherProject name]] && [[self companyName] isEqual:[otherProject companyName]] && [[self account] isEqual:[otherProject account]];
+	if (self.projectID == BNProjectFreeID) {
+		return [self.name isEqual:otherProject.name] && [self.companyName isEqual:otherProject.companyName] && [self.URL isEqual:otherProject.URL];
+	}
+	return self.projectID == otherProject.projectID;
 }
 
 - (NSString *)description {
@@ -55,11 +62,23 @@ static NSString * const BNProjectLatestStatusesKey = @"BNProjectLatestStatusesKe
 	return [[latestStatuses retain] autorelease];
 }
 
+- (NSNumber *)hasUnread {
+	BOOL has = NO;
+	for (BNStatus *curr in self.latestStatuses) {
+		if (![curr isRead]) {
+			has = YES;
+			break;
+		}
+	}
+	return [NSNumber numberWithBool:has];
+}
+
 #pragma mark NSCopying Methods
 
 - (id)copyWithZone:(NSZone *)zone {
 	BNProject *otherProject = [[[self class] allocWithZone:zone] initWithName:[self name] companyName:[self companyName] URL:[self URL] account:[self account]];
 	[otherProject setLatestStatuses:[self latestStatuses]];
+	[otherProject setProjectID:self.projectID];
 	return otherProject;
 }
 
@@ -73,6 +92,7 @@ static NSString * const BNProjectLatestStatusesKey = @"BNProjectLatestStatusesKe
 			self.URL = [decoder decodeObjectForKey:BNProjectURLKey];
 			self.account = [decoder decodeObjectForKey:BNProjectAccountKey];
 			self.latestStatuses = [decoder decodeObjectForKey:BNProjectLatestStatusesKey];
+			self.projectID = [decoder decodeIntegerForKey:BNProjectIDKey];
 		}
 	}
 	return self;
@@ -85,6 +105,7 @@ static NSString * const BNProjectLatestStatusesKey = @"BNProjectLatestStatusesKe
 		[aCoder encodeObject:self.URL forKey:BNProjectURLKey];
 		[aCoder encodeObject:self.account forKey:BNProjectAccountKey];
 		[aCoder encodeObject:self.latestStatuses forKey:BNProjectLatestStatusesKey];
+		[aCoder encodeInteger:self.projectID forKey:BNProjectIDKey];
 	}
 }
 

@@ -10,7 +10,7 @@
 #import "BNActivityController.h"
 
 @class BNAccount;
-@interface BNPreferencesWindowController : NSWindowController <NSTableViewDataSource, NSTableViewDelegate, BNAccountCheckingDelegate> {
+@interface BNPreferencesWindowController : NSWindowController <NSTableViewDataSource, NSTableViewDelegate, BNAccountCheckingDelegate, NSTabViewDelegate> {
 	NSArray *songNamesArray;
 	NSArray *refreshStrings;
 
@@ -23,6 +23,11 @@
 	IBOutlet NSTextField *urlPrefixField;
 	IBOutlet NSProgressIndicator *loginSpinner;
 	IBOutlet NSTextField *accountInfoLabel;
+	IBOutlet NSTabView *tabView;
+	IBOutlet NSTextField *otherURLPrefixField;
+	IBOutlet NSTextField *apiKeyField;
+	IBOutlet NSButton *addAccountButton;
+	IBOutlet NSButton *cancelButton;
 }
 
 @property (retain, readonly) NSArray *songNamesArray;

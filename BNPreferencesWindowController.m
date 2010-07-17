@@ -13,6 +13,8 @@
 #import "NSDictionary+NPAdditions.h"
 #import <Sparkle/Sparkle.h>
 #import "BNURLPrefixValueTransformer.h"
+#import "NSTabView+NPAdditions.h"
+#import "BNOpenIDAccount.h"
 
 @interface BNPreferencesWindowController ()
 @property (retain, readwrite) NSArray *songNamesArray;
@@ -55,20 +57,38 @@
 }
 
 - (IBAction)addAccountPressed:(id)sender {
-	if ([[userField stringValue] length] > 0 && [[passwordField stringValue] length] > 0 && [[urlPrefixField stringValue] length] > 0) {
-		BNURLPrefixValueTransformer *transformer = [[BNURLPrefixValueTransformer alloc] init];
-		BNAccount *theAccount = [BNAccount accountWithUser:[userField stringValue] password:[passwordField stringValue] URL:[transformer transformedValue:[urlPrefixField stringValue]]];
-		[transformer release];
-		if (![[BNActivityController sharedController] hasAccount:theAccount]) {
-			[[BNActivityController sharedController] checkAccountCredentials:theAccount delegate:self];
-			[loginSpinner setHidden:NO];
-			[loginSpinner startAnimation:self];
-			[accountInfoLabel setHidden:YES];
-		} else {
-			[accountInfoLabel setHidden:NO];
-			[accountInfoLabel setStringValue:@"Account already added"];
-			NSBeep();
+	BNURLPrefixValueTransformer *transformer = [[BNURLPrefixValueTransformer alloc] init];
+	BNAccount *theAccount = nil;
+	if ([tabView indexOfSelectedTabViewItem] == 0) {
+		if ([[userField stringValue] length] > 0 && [[passwordField stringValue] length] > 0 && [[urlPrefixField stringValue] length] > 0) {
+			theAccount = [BNAccount accountWithUser:[userField stringValue] password:[passwordField stringValue] URL:[transformer transformedValue:[urlPrefixField stringValue]]];
 		}
+	} else if ([tabView indexOfSelectedTabViewItem] == 1) {
+		if ([[apiKeyField stringValue] length] > 0 && [[otherURLPrefixField stringValue] length] > 0) {
+			theAccount = [BNOpenIDAccount openIDAccountWithAPIToken:[apiKeyField stringValue] URL:[transformer transformedValue:[otherURLPrefixField stringValue]]];
+		}
+	}
+	if (theAccount != nil && ![[BNActivityController sharedController] hasAccount:theAccount]) {
+		[[BNActivityController sharedController] checkAccountCredentials:theAccount delegate:self];
+		[loginSpinner setHidden:NO];
+		[loginSpinner startAnimation:self];
+		[accountInfoLabel setHidden:YES];
+		[addAccountButton setEnabled:NO];
+		[cancelButton setEnabled:NO];
+	} else {
+		[accountInfoLabel setHidden:NO];
+		[accountInfoLabel setStringValue:@"Account already added"];
+		NSBeep();
+	}
+	[transformer release];
+}
+
+- (void)tabView:(NSTabView *)theTabView didSelectTabViewItem:(NSTabViewItem *)tabViewItem {
+	NSInteger theIndex = [tabView indexOfTabViewItem:tabViewItem];
+	if (theIndex == 0) {
+		[addAccountSheet makeFirstResponder:urlPrefixField];
+	} else if (theIndex == 1) {
+		[addAccountSheet makeFirstResponder:otherURLPrefixField];
 	}
 }
 
@@ -83,12 +103,17 @@
 		[userField setStringValue:@""];
 		[passwordField setStringValue:@""];
 		[urlPrefixField setStringValue:@""];
+		[otherURLPrefixField setStringValue:@""];
+		[apiKeyField setStringValue:@""];
+		[tabView selectFirstTabViewItem:self];
 		[addAccountSheet makeFirstResponder:urlPrefixField];
 	} else {
 		[accountInfoLabel setStringValue:@"Login failed"];
 		[accountInfoLabel setHidden:NO];
 		NSBeep();
 	}
+	[addAccountButton setEnabled:YES];
+	[cancelButton setEnabled:YES];
 }
 
 - (IBAction)cancelButtonPressed:(id)sender {

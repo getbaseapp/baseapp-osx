@@ -78,10 +78,10 @@
 			*error = theError;
 			return nil;
 		}
-		
 		NSURL *projectURL = [NSURL URLWithString:[NSString stringWithFormat:@"https://%@/projects/%i", [[theAccount URL] host], intValue]];
 		PSFeed *theFeed = [[PSFeed alloc] initWithData:retData URL:[theAccount URL]];
 		BNProject *theProject = [BNProject projectWithName:[theFeed title] companyName:[self _firstCompanyNameInFeed:theFeed] URL:projectURL account:theAccount];
+		[theProject setProjectID:[currID integerValue]];
 		NSArray *theStatuses = [self _statusesForProject:theProject inFeed:theFeed account:theAccount];
 		NSSortDescriptor *sortDesc = [[NSSortDescriptor alloc] initWithKey:@"date" ascending:NO];
 		theStatuses = [theStatuses sortedArrayUsingDescriptors:[NSArray arrayWithObject:sortDesc]];
@@ -112,6 +112,7 @@
 		[sortDesc release];
 		[currProject setLatestStatuses:theStatuses];
 		[currProject setURL:[NSURL URLWithString:[NSString stringWithFormat:@"https://%@/", [[theAccount URL] host]]]];
+		[currProject setProjectID:BNProjectFreeID];
 		[retArray addObject:currProject];
 	}
 	
@@ -136,7 +137,7 @@
 		if (compName != nil)
 			return compName;
 	}
-	return nil;
+	return @"Unknown Company";
 }
 
 - (NSString *)_companyNameInEntry:(PSEntry *)theEntry {
@@ -162,7 +163,6 @@
 	NSError *tempError = nil;
 	NSString *projectsURL = [NSString stringWithFormat:@"https://%@/projects.xml", [[theAccount URL] host]];
 	NSData *projXMLRetData = [NSURLConnection sendSynchronousRequest:[self _requestForURL:[NSURL URLWithString:projectsURL] account:theAccount] returningResponse:nil error:&tempError];
-	
 	NSString *testString = [[NSString alloc] initWithData:projXMLRetData encoding:NSUTF8StringEncoding];
 	if ([testString isEqualToString:@"HTTP Basic: Access denied.\n"] || [testString isEqualToString:@" "]) {
 		*theError = [NSError errorWithDomain:NSURLErrorDomain code:NSURLErrorUserAuthenticationRequired userInfo:[NSDictionary dictionaryWithObjectsAndKeys:@"Login failed", NSLocalizedDescriptionKey, nil]];
@@ -200,7 +200,7 @@
 			}
 			if ([[currChild name] isEqualToString:@"status"]) {
 				NSString *theString = [currChild stringValue];
-				if ([theString isEqualToString:@"on_hold"] || [theString isEqualToString:@"archived"])
+				if (![theString isEqualToString:@"active"])
 					isNotUsed = YES;
 			}
 		}
@@ -251,8 +251,9 @@
 	PSEntry *currEntry;
 	NSMutableArray *retArray = [NSMutableArray array];
 	while (currEntry = [entryEnumerator nextObject]) {
-		BNProject *tempProject = [BNProject projectWithName:([theAccount isFree] ? [self _projectNameInEntry:currEntry] : [theFeed title]) companyName:([theAccount isFree] ? [theFeed title] : [self _firstCompanyNameInFeed:theFeed]) URL:nil account:theAccount];
-		if ([tempProject isEqual:theProject]) {
+		NSString *currProjName = ([theAccount isFree] ? [self _projectNameInEntry:currEntry] : [theFeed title]) ;
+		NSString *currProjCompName = ([theAccount isFree] ? [theFeed title] : [self _firstCompanyNameInFeed:theFeed]);
+		if ([currProjName isEqual:theProject.name] && [currProjCompName isEqual:theProject.companyName]) {
 			[retArray addObject:[self _statusForEntry:currEntry]];
 		}
 	}

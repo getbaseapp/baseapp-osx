@@ -12,8 +12,15 @@
 		4B2E75F311D4DCFE002A1CFA /* Growl Registration Ticket.growlRegDict in Resources */ = {isa = PBXBuildFile; fileRef = 4B2E75F211D4DCFE002A1CFA /* Growl Registration Ticket.growlRegDict */; };
 		4B2E776511D51950002A1CFA /* BNURLPrefixValueTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B2E776411D51950002A1CFA /* BNURLPrefixValueTransformer.m */; };
 		4B2E783F11D652EB002A1CFA /* NSDictionary+NPAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B2E783E11D652EB002A1CFA /* NSDictionary+NPAdditions.m */; };
-		4B2E78E211D66705002A1CFA /* BNMenuItemRef.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B2E78E111D66705002A1CFA /* BNMenuItemRef.m */; };
 		4B2E791311D66BF7002A1CFA /* NSMenu+NPAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B2E791211D66BF7002A1CFA /* NSMenu+NPAdditions.m */; };
+		4B3D86E911EBDA8400D97E9B /* Preferences-Updates.png in Resources */ = {isa = PBXBuildFile; fileRef = 4B3D86E811EBDA8400D97E9B /* Preferences-Updates.png */; };
+		4B3D86F711EBDA9C00D97E9B /* Preferences-Account.png in Resources */ = {isa = PBXBuildFile; fileRef = 4B3D86F611EBDA9C00D97E9B /* Preferences-Account.png */; };
+		4B3D8C2611EBDCCE00D97E9B /* BNMenuItemRef.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B3D8C2511EBDCCE00D97E9B /* BNMenuItemRef.m */; };
+		4B3D912F11EBDD5600D97E9B /* Flare.icns in Resources */ = {isa = PBXBuildFile; fileRef = 4B3D912E11EBDD5600D97E9B /* Flare.icns */; };
+		4B3D964F11EBDECE00D97E9B /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B3D964E11EBDECE00D97E9B /* Sparkle.framework */; };
+		4B3D965211EBDED400D97E9B /* Sparkle.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 4B3D964E11EBDECE00D97E9B /* Sparkle.framework */; };
+		4B3D96FD11ECA00A00D97E9B /* BNOpenIDAccount.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B3D96FC11ECA00A00D97E9B /* BNOpenIDAccount.m */; };
+		4B3D973611ECA7CD00D97E9B /* NSTabView+NPAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B3D973511ECA7CD00D97E9B /* NSTabView+NPAdditions.m */; };
 		4B6A11B311D4449300ABA9D7 /* BNTimeValueTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B6A11B211D4449300ABA9D7 /* BNTimeValueTransformer.m */; };
 		4B6A11B611D4468400ABA9D7 /* BNPreferencesWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B6A11B511D4468400ABA9D7 /* BNPreferencesWindowController.m */; };
 		4B6A122111D452A300ABA9D7 /* NSTimer+NPBlocks.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B6A122011D452A300ABA9D7 /* NSTimer+NPBlocks.m */; };
@@ -23,8 +30,6 @@
 		4B6A13E111D4D74900ABA9D7 /* BWSelectableToolbarHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B6A13DB11D4D74900ABA9D7 /* BWSelectableToolbarHelper.m */; };
 		4B6A13E811D4D76000ABA9D7 /* BWSelectableToolbarInspector.nib in Resources */ = {isa = PBXBuildFile; fileRef = 4B6A13E711D4D76000ABA9D7 /* BWSelectableToolbarInspector.nib */; };
 		4B6A13F011D4D78700ABA9D7 /* NSWindow+BWAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B6A13EF11D4D78700ABA9D7 /* NSWindow+BWAdditions.m */; };
-		4B6A140B11D4DA1A00ABA9D7 /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B6A140A11D4DA1A00ABA9D7 /* Sparkle.framework */; };
-		4B6A141411D4DA1D00ABA9D7 /* Sparkle.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 4B6A140A11D4DA1A00ABA9D7 /* Sparkle.framework */; };
 		4B6A141811D4DB4B00ABA9D7 /* BNUserNotificationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B6A141711D4DB4B00ABA9D7 /* BNUserNotificationController.m */; };
 		4B6A142011D4DBFC00ABA9D7 /* Growl.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B6A141F11D4DBFC00ABA9D7 /* Growl.framework */; };
 		4B6A142811D4DC0500ABA9D7 /* Growl.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 4B6A141F11D4DBFC00ABA9D7 /* Growl.framework */; };
@@ -32,7 +37,6 @@
 		8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C165CFE840E0CC02AAC07 /* InfoPlist.strings */; };
 		8D11072D0486CEB800E47090 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; settings = {ATTRIBUTES = (); }; };
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
-		AD09F98D112ACD7100F78870 /* Basecamp Notifications.icns in Resources */ = {isa = PBXBuildFile; fileRef = AD09F98C112ACD7100F78870 /* Basecamp Notifications.icns */; };
 		AD45A55A1128A843006209D2 /* BNAccount.m in Sources */ = {isa = PBXBuildFile; fileRef = AD45A5591128A843006209D2 /* BNAccount.m */; };
 		AD4776571129D97A0063A586 /* BNFeedOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = AD4776561129D97A0063A586 /* BNFeedOperation.m */; };
 		AD47765A1129DE8B0063A586 /* NSObject+NPMainThreadBlocks.m in Sources */ = {isa = PBXBuildFile; fileRef = AD4776591129DE8B0063A586 /* NSObject+NPMainThreadBlocks.m */; };
@@ -65,8 +69,8 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				4B3D965211EBDED400D97E9B /* Sparkle.framework in Copy Frameworks */,
 				4B6A142811D4DC0500ABA9D7 /* Growl.framework in Copy Frameworks */,
-				4B6A141411D4DA1D00ABA9D7 /* Sparkle.framework in Copy Frameworks */,
 			);
 			name = "Copy Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -80,43 +84,49 @@
 		1DDD58150DA1D0A300B32029 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		256AC3D80F4B6AC300CF3369 /* BNAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BNAppDelegate.h; sourceTree = "<group>"; };
 		256AC3D90F4B6AC300CF3369 /* BNAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BNAppDelegate.m; sourceTree = "<group>"; };
-		256AC3F00F4B6AF500CF3369 /* Basecamp_Notifications_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Basecamp_Notifications_Prefix.pch; sourceTree = "<group>"; };
+		256AC3F00F4B6AF500CF3369 /* Flare_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Flare_Prefix.pch; sourceTree = "<group>"; };
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		29B97324FDCFA39411CA2CEA /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		29B97325FDCFA39411CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
-		4B2E75F211D4DCFE002A1CFA /* Growl Registration Ticket.growlRegDict */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = "Growl Registration Ticket.growlRegDict"; path = "Projects/Linebreak/Basecamp Notifications/Growl Registration Ticket.growlRegDict"; sourceTree = DEVELOPER_DIR; };
-		4B2E776311D51950002A1CFA /* BNURLPrefixValueTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BNURLPrefixValueTransformer.h; path = "Projects/Linebreak/Basecamp Notifications/BNURLPrefixValueTransformer.h"; sourceTree = DEVELOPER_DIR; };
-		4B2E776411D51950002A1CFA /* BNURLPrefixValueTransformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BNURLPrefixValueTransformer.m; path = "Projects/Linebreak/Basecamp Notifications/BNURLPrefixValueTransformer.m"; sourceTree = DEVELOPER_DIR; };
-		4B2E783D11D652EB002A1CFA /* NSDictionary+NPAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSDictionary+NPAdditions.h"; path = "Projects/Linebreak/Basecamp Notifications/NSDictionary+NPAdditions.h"; sourceTree = DEVELOPER_DIR; };
-		4B2E783E11D652EB002A1CFA /* NSDictionary+NPAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSDictionary+NPAdditions.m"; path = "Projects/Linebreak/Basecamp Notifications/NSDictionary+NPAdditions.m"; sourceTree = DEVELOPER_DIR; };
-		4B2E78E011D66705002A1CFA /* BNMenuItemRef.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BNMenuItemRef.h; path = "Projects/Linebreak/Basecamp Notifications/BNMenuItemRef.h"; sourceTree = DEVELOPER_DIR; };
-		4B2E78E111D66705002A1CFA /* BNMenuItemRef.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BNMenuItemRef.m; path = "Projects/Linebreak/Basecamp Notifications/BNMenuItemRef.m"; sourceTree = DEVELOPER_DIR; };
-		4B2E791111D66BF7002A1CFA /* NSMenu+NPAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSMenu+NPAdditions.h"; path = "Projects/Linebreak/Basecamp Notifications/NSMenu+NPAdditions.h"; sourceTree = DEVELOPER_DIR; };
-		4B2E791211D66BF7002A1CFA /* NSMenu+NPAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSMenu+NPAdditions.m"; path = "Projects/Linebreak/Basecamp Notifications/NSMenu+NPAdditions.m"; sourceTree = DEVELOPER_DIR; };
-		4B6A11B111D4449300ABA9D7 /* BNTimeValueTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BNTimeValueTransformer.h; path = "Projects/Linebreak/Basecamp Notifications/BNTimeValueTransformer.h"; sourceTree = DEVELOPER_DIR; };
-		4B6A11B211D4449300ABA9D7 /* BNTimeValueTransformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BNTimeValueTransformer.m; path = "Projects/Linebreak/Basecamp Notifications/BNTimeValueTransformer.m"; sourceTree = DEVELOPER_DIR; };
-		4B6A11B411D4468400ABA9D7 /* BNPreferencesWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BNPreferencesWindowController.h; path = "Projects/Linebreak/Basecamp Notifications/BNPreferencesWindowController.h"; sourceTree = DEVELOPER_DIR; };
-		4B6A11B511D4468400ABA9D7 /* BNPreferencesWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BNPreferencesWindowController.m; path = "Projects/Linebreak/Basecamp Notifications/BNPreferencesWindowController.m"; sourceTree = DEVELOPER_DIR; };
-		4B6A121F11D452A300ABA9D7 /* NSTimer+NPBlocks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSTimer+NPBlocks.h"; path = "Projects/Linebreak/Basecamp Notifications/NSTimer+NPBlocks.h"; sourceTree = DEVELOPER_DIR; };
-		4B6A122011D452A300ABA9D7 /* NSTimer+NPBlocks.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSTimer+NPBlocks.m"; path = "Projects/Linebreak/Basecamp Notifications/NSTimer+NPBlocks.m"; sourceTree = DEVELOPER_DIR; };
-		4B6A137211D4626500ABA9D7 /* NSSound+NPSystemSounds.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSSound+NPSystemSounds.h"; path = "Projects/Linebreak/Basecamp Notifications/NSSound+NPSystemSounds.h"; sourceTree = DEVELOPER_DIR; };
-		4B6A137311D4626500ABA9D7 /* NSSound+NPSystemSounds.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSSound+NPSystemSounds.m"; path = "Projects/Linebreak/Basecamp Notifications/NSSound+NPSystemSounds.m"; sourceTree = DEVELOPER_DIR; };
-		4B6A13D711D4D74900ABA9D7 /* BWSelectableToolbar.classdescription */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.ibClassDescription; name = BWSelectableToolbar.classdescription; path = "Projects/Linebreak/Basecamp Notifications/BWSelectableToolbar.classdescription"; sourceTree = DEVELOPER_DIR; };
+		4B2E75F211D4DCFE002A1CFA /* Growl Registration Ticket.growlRegDict */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = "Growl Registration Ticket.growlRegDict"; path = "Projects/Linebreak/Flare/Growl Registration Ticket.growlRegDict"; sourceTree = DEVELOPER_DIR; };
+		4B2E776311D51950002A1CFA /* BNURLPrefixValueTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BNURLPrefixValueTransformer.h; path = Projects/Linebreak/Flare/BNURLPrefixValueTransformer.h; sourceTree = DEVELOPER_DIR; };
+		4B2E776411D51950002A1CFA /* BNURLPrefixValueTransformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BNURLPrefixValueTransformer.m; path = Projects/Linebreak/Flare/BNURLPrefixValueTransformer.m; sourceTree = DEVELOPER_DIR; };
+		4B2E783D11D652EB002A1CFA /* NSDictionary+NPAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSDictionary+NPAdditions.h"; path = "Projects/Linebreak/Flare/NSDictionary+NPAdditions.h"; sourceTree = DEVELOPER_DIR; };
+		4B2E783E11D652EB002A1CFA /* NSDictionary+NPAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSDictionary+NPAdditions.m"; path = "Projects/Linebreak/Flare/NSDictionary+NPAdditions.m"; sourceTree = DEVELOPER_DIR; };
+		4B2E791111D66BF7002A1CFA /* NSMenu+NPAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSMenu+NPAdditions.h"; path = "Projects/Linebreak/Flare/NSMenu+NPAdditions.h"; sourceTree = DEVELOPER_DIR; };
+		4B2E791211D66BF7002A1CFA /* NSMenu+NPAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSMenu+NPAdditions.m"; path = "Projects/Linebreak/Flare/NSMenu+NPAdditions.m"; sourceTree = DEVELOPER_DIR; };
+		4B3D86E811EBDA8400D97E9B /* Preferences-Updates.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Preferences-Updates.png"; path = "Projects/Linebreak/Flare/Preferences-Updates.png"; sourceTree = DEVELOPER_DIR; };
+		4B3D86F611EBDA9C00D97E9B /* Preferences-Account.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Preferences-Account.png"; path = "Projects/Linebreak/Flare/Preferences-Account.png"; sourceTree = DEVELOPER_DIR; };
+		4B3D8C2411EBDCCE00D97E9B /* BNMenuItemRef.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BNMenuItemRef.h; path = Projects/Linebreak/Flare/BNMenuItemRef.h; sourceTree = DEVELOPER_DIR; };
+		4B3D8C2511EBDCCE00D97E9B /* BNMenuItemRef.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BNMenuItemRef.m; path = Projects/Linebreak/Flare/BNMenuItemRef.m; sourceTree = DEVELOPER_DIR; };
+		4B3D912E11EBDD5600D97E9B /* Flare.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; name = Flare.icns; path = Projects/Linebreak/Flare/Flare.icns; sourceTree = DEVELOPER_DIR; };
+		4B3D963711EBDD7600D97E9B /* Flare-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "Flare-Info.plist"; path = "Projects/Linebreak/Flare/Flare-Info.plist"; sourceTree = DEVELOPER_DIR; };
+		4B3D964E11EBDECE00D97E9B /* Sparkle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Sparkle.framework; sourceTree = "<group>"; };
+		4B3D96FB11ECA00A00D97E9B /* BNOpenIDAccount.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BNOpenIDAccount.h; path = Projects/Linebreak/Flare/BNOpenIDAccount.h; sourceTree = DEVELOPER_DIR; };
+		4B3D96FC11ECA00A00D97E9B /* BNOpenIDAccount.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BNOpenIDAccount.m; path = Projects/Linebreak/Flare/BNOpenIDAccount.m; sourceTree = DEVELOPER_DIR; };
+		4B3D973411ECA7CD00D97E9B /* NSTabView+NPAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSTabView+NPAdditions.h"; path = "Projects/Linebreak/Flare/NSTabView+NPAdditions.h"; sourceTree = DEVELOPER_DIR; };
+		4B3D973511ECA7CD00D97E9B /* NSTabView+NPAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSTabView+NPAdditions.m"; path = "Projects/Linebreak/Flare/NSTabView+NPAdditions.m"; sourceTree = DEVELOPER_DIR; };
+		4B6A11B111D4449300ABA9D7 /* BNTimeValueTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BNTimeValueTransformer.h; path = Projects/Linebreak/Flare/BNTimeValueTransformer.h; sourceTree = DEVELOPER_DIR; };
+		4B6A11B211D4449300ABA9D7 /* BNTimeValueTransformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BNTimeValueTransformer.m; path = Projects/Linebreak/Flare/BNTimeValueTransformer.m; sourceTree = DEVELOPER_DIR; };
+		4B6A11B411D4468400ABA9D7 /* BNPreferencesWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BNPreferencesWindowController.h; path = Projects/Linebreak/Flare/BNPreferencesWindowController.h; sourceTree = DEVELOPER_DIR; };
+		4B6A11B511D4468400ABA9D7 /* BNPreferencesWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BNPreferencesWindowController.m; path = Projects/Linebreak/Flare/BNPreferencesWindowController.m; sourceTree = DEVELOPER_DIR; };
+		4B6A121F11D452A300ABA9D7 /* NSTimer+NPBlocks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSTimer+NPBlocks.h"; path = "Projects/Linebreak/Flare/NSTimer+NPBlocks.h"; sourceTree = DEVELOPER_DIR; };
+		4B6A122011D452A300ABA9D7 /* NSTimer+NPBlocks.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSTimer+NPBlocks.m"; path = "Projects/Linebreak/Flare/NSTimer+NPBlocks.m"; sourceTree = DEVELOPER_DIR; };
+		4B6A137211D4626500ABA9D7 /* NSSound+NPSystemSounds.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSSound+NPSystemSounds.h"; path = "Projects/Linebreak/Flare/NSSound+NPSystemSounds.h"; sourceTree = DEVELOPER_DIR; };
+		4B6A137311D4626500ABA9D7 /* NSSound+NPSystemSounds.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSSound+NPSystemSounds.m"; path = "Projects/Linebreak/Flare/NSSound+NPSystemSounds.m"; sourceTree = DEVELOPER_DIR; };
+		4B6A13D711D4D74900ABA9D7 /* BWSelectableToolbar.classdescription */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.ibClassDescription; name = BWSelectableToolbar.classdescription; path = Projects/Linebreak/Flare/BWSelectableToolbar.classdescription; sourceTree = DEVELOPER_DIR; };
 		4B6A13D811D4D74900ABA9D7 /* BWSelectableToolbar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BWSelectableToolbar.h; path = "Projects/Linebreak/Basecamp Notifications/BWSelectableToolbar.h"; sourceTree = DEVELOPER_DIR; };
-		4B6A13D911D4D74900ABA9D7 /* BWSelectableToolbar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BWSelectableToolbar.m; path = "Projects/Linebreak/Basecamp Notifications/BWSelectableToolbar.m"; sourceTree = DEVELOPER_DIR; };
+		4B6A13D911D4D74900ABA9D7 /* BWSelectableToolbar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BWSelectableToolbar.m; path = Projects/Linebreak/Flare/BWSelectableToolbar.m; sourceTree = DEVELOPER_DIR; };
 		4B6A13DA11D4D74900ABA9D7 /* BWSelectableToolbarHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BWSelectableToolbarHelper.h; path = "Projects/Linebreak/Basecamp Notifications/BWSelectableToolbarHelper.h"; sourceTree = DEVELOPER_DIR; };
-		4B6A13DB11D4D74900ABA9D7 /* BWSelectableToolbarHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BWSelectableToolbarHelper.m; path = "Projects/Linebreak/Basecamp Notifications/BWSelectableToolbarHelper.m"; sourceTree = DEVELOPER_DIR; };
-		4B6A13E711D4D76000ABA9D7 /* BWSelectableToolbarInspector.nib */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = BWSelectableToolbarInspector.nib; path = "Projects/Linebreak/Basecamp Notifications/BWSelectableToolbarInspector.nib"; sourceTree = DEVELOPER_DIR; };
+		4B6A13DB11D4D74900ABA9D7 /* BWSelectableToolbarHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BWSelectableToolbarHelper.m; path = Projects/Linebreak/Flare/BWSelectableToolbarHelper.m; sourceTree = DEVELOPER_DIR; };
+		4B6A13E711D4D76000ABA9D7 /* BWSelectableToolbarInspector.nib */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = BWSelectableToolbarInspector.nib; path = Projects/Linebreak/Flare/BWSelectableToolbarInspector.nib; sourceTree = DEVELOPER_DIR; };
 		4B6A13EE11D4D78700ABA9D7 /* NSWindow+BWAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSWindow+BWAdditions.h"; path = "Projects/Linebreak/Basecamp Notifications/NSWindow+BWAdditions.h"; sourceTree = DEVELOPER_DIR; };
-		4B6A13EF11D4D78700ABA9D7 /* NSWindow+BWAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSWindow+BWAdditions.m"; path = "Projects/Linebreak/Basecamp Notifications/NSWindow+BWAdditions.m"; sourceTree = DEVELOPER_DIR; };
-		4B6A140A11D4DA1A00ABA9D7 /* Sparkle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Sparkle.framework; path = "Projects/Linebreak/Basecamp Notifications/Sparkle.framework"; sourceTree = DEVELOPER_DIR; };
-		4B6A141611D4DB4B00ABA9D7 /* BNUserNotificationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BNUserNotificationController.h; path = "Projects/Linebreak/Basecamp Notifications/BNUserNotificationController.h"; sourceTree = DEVELOPER_DIR; };
-		4B6A141711D4DB4B00ABA9D7 /* BNUserNotificationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BNUserNotificationController.m; path = "Projects/Linebreak/Basecamp Notifications/BNUserNotificationController.m"; sourceTree = DEVELOPER_DIR; };
-		4B6A141F11D4DBFC00ABA9D7 /* Growl.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Growl.framework; path = "Projects/Linebreak/Basecamp Notifications/Growl.framework"; sourceTree = DEVELOPER_DIR; };
-		4B85484211D438E3000E8280 /* BNPreferencesWindowController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = BNPreferencesWindowController.xib; path = "Projects/Linebreak/Basecamp Notifications/BNPreferencesWindowController.xib"; sourceTree = DEVELOPER_DIR; };
-		8D1107310486CEB800E47090 /* BasecampNotifications-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "BasecampNotifications-Info.plist"; sourceTree = "<group>"; };
-		8D1107320486CEB800E47090 /* Basecamp Notifications.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Basecamp Notifications.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		AD09F98C112ACD7100F78870 /* Basecamp Notifications.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = "Basecamp Notifications.icns"; sourceTree = "<group>"; };
+		4B6A13EF11D4D78700ABA9D7 /* NSWindow+BWAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSWindow+BWAdditions.m"; path = "Projects/Linebreak/Flare/NSWindow+BWAdditions.m"; sourceTree = DEVELOPER_DIR; };
+		4B6A141611D4DB4B00ABA9D7 /* BNUserNotificationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BNUserNotificationController.h; path = Projects/Linebreak/Flare/BNUserNotificationController.h; sourceTree = DEVELOPER_DIR; };
+		4B6A141711D4DB4B00ABA9D7 /* BNUserNotificationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BNUserNotificationController.m; path = Projects/Linebreak/Flare/BNUserNotificationController.m; sourceTree = DEVELOPER_DIR; };
+		4B6A141F11D4DBFC00ABA9D7 /* Growl.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Growl.framework; path = Projects/Linebreak/Flare/Growl.framework; sourceTree = DEVELOPER_DIR; };
+		4B85484211D438E3000E8280 /* BNPreferencesWindowController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = BNPreferencesWindowController.xib; path = Projects/Linebreak/Flare/BNPreferencesWindowController.xib; sourceTree = DEVELOPER_DIR; };
+		8D1107320486CEB800E47090 /* Flare.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Flare.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AD45A5581128A843006209D2 /* BNAccount.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BNAccount.h; sourceTree = "<group>"; };
 		AD45A5591128A843006209D2 /* BNAccount.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BNAccount.m; sourceTree = "<group>"; };
 		AD4776551129D97A0063A586 /* BNFeedOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BNFeedOperation.h; sourceTree = "<group>"; };
@@ -162,8 +172,8 @@
 				8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */,
 				ADB50D161128ABF100A8F2D4 /* Security.framework in Frameworks */,
 				AD47767B1129E0B30063A586 /* PubSub.framework in Frameworks */,
-				4B6A140B11D4DA1A00ABA9D7 /* Sparkle.framework in Frameworks */,
 				4B6A142011D4DBFC00ABA9D7 /* Growl.framework in Frameworks */,
+				4B3D964F11EBDECE00D97E9B /* Sparkle.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -179,10 +189,12 @@
 				AD4FB5D7112625C200E10C2A /* BNStatus.m */,
 				AD4FB5D9112625C800E10C2A /* BNProject.h */,
 				AD4FB5DA112625C800E10C2A /* BNProject.m */,
-				4B2E78E011D66705002A1CFA /* BNMenuItemRef.h */,
-				4B2E78E111D66705002A1CFA /* BNMenuItemRef.m */,
+				4B3D8C2411EBDCCE00D97E9B /* BNMenuItemRef.h */,
+				4B3D8C2511EBDCCE00D97E9B /* BNMenuItemRef.m */,
 				AD45A5581128A843006209D2 /* BNAccount.h */,
 				AD45A5591128A843006209D2 /* BNAccount.m */,
+				4B3D96FB11ECA00A00D97E9B /* BNOpenIDAccount.h */,
+				4B3D96FC11ECA00A00D97E9B /* BNOpenIDAccount.m */,
 				ADB50D661128AC3300A8F2D4 /* EMKeychain.h */,
 				ADB50D671128AC3300A8F2D4 /* EMKeychain.m */,
 				AD4FB5F811262A8800E10C2A /* BNStatusItemController.h */,
@@ -217,6 +229,8 @@
 				4B6A137311D4626500ABA9D7 /* NSSound+NPSystemSounds.m */,
 				4B2E791111D66BF7002A1CFA /* NSMenu+NPAdditions.h */,
 				4B2E791211D66BF7002A1CFA /* NSMenu+NPAdditions.m */,
+				4B3D973411ECA7CD00D97E9B /* NSTabView+NPAdditions.h */,
+				4B3D973511ECA7CD00D97E9B /* NSTabView+NPAdditions.m */,
 				4B6A13E411D4D74E00ABA9D7 /* BWToolkit */,
 			);
 			name = Classes;
@@ -226,10 +240,10 @@
 			isa = PBXGroup;
 			children = (
 				4B6A141F11D4DBFC00ABA9D7 /* Growl.framework */,
-				4B6A140A11D4DA1A00ABA9D7 /* Sparkle.framework */,
 				ADB50D151128ABF100A8F2D4 /* Security.framework */,
 				1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */,
 				AD47767A1129E0B30063A586 /* PubSub.framework */,
+				4B3D964E11EBDECE00D97E9B /* Sparkle.framework */,
 			);
 			name = "Linked Frameworks";
 			sourceTree = "<group>";
@@ -247,7 +261,7 @@
 		19C28FACFE9D520D11CA2CBB /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				8D1107320486CEB800E47090 /* Basecamp Notifications.app */,
+				8D1107320486CEB800E47090 /* Flare.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -267,7 +281,7 @@
 		29B97315FDCFA39411CA2CEA /* Other Sources */ = {
 			isa = PBXGroup;
 			children = (
-				256AC3F00F4B6AF500CF3369 /* Basecamp_Notifications_Prefix.pch */,
+				256AC3F00F4B6AF500CF3369 /* Flare_Prefix.pch */,
 				29B97316FDCFA39411CA2CEA /* main.m */,
 			);
 			name = "Other Sources";
@@ -276,10 +290,12 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				AD09F98C112ACD7100F78870 /* Basecamp Notifications.icns */,
+				4B3D912E11EBDD5600D97E9B /* Flare.icns */,
 				4B6A143011D4DCA000ABA9D7 /* Drop Down */,
 				4B6A143111D4DCA500ABA9D7 /* Status Item */,
-				8D1107310486CEB800E47090 /* BasecampNotifications-Info.plist */,
+				4B3D86F611EBDA9C00D97E9B /* Preferences-Account.png */,
+				4B3D86E811EBDA8400D97E9B /* Preferences-Updates.png */,
+				4B3D963711EBDD7600D97E9B /* Flare-Info.plist */,
 				4B2E75F211D4DCFE002A1CFA /* Growl Registration Ticket.growlRegDict */,
 				089C165CFE840E0CC02AAC07 /* InfoPlist.strings */,
 				1DDD58140DA1D0A300B32029 /* MainMenu.xib */,
@@ -338,9 +354,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		8D1107260486CEB800E47090 /* Basecamp Notifications */ = {
+		8D1107260486CEB800E47090 /* Flare */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = C01FCF4A08A954540054247B /* Build configuration list for PBXNativeTarget "Basecamp Notifications" */;
+			buildConfigurationList = C01FCF4A08A954540054247B /* Build configuration list for PBXNativeTarget "Flare" */;
 			buildPhases = (
 				8D1107290486CEB800E47090 /* Resources */,
 				8D11072C0486CEB800E47090 /* Sources */,
@@ -352,10 +368,10 @@
 			);
 			dependencies = (
 			);
-			name = "Basecamp Notifications";
+			name = Flare;
 			productInstallPath = "$(HOME)/Applications";
 			productName = "Basecamp Notifications";
-			productReference = 8D1107320486CEB800E47090 /* Basecamp Notifications.app */;
+			productReference = 8D1107320486CEB800E47090 /* Flare.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -363,14 +379,14 @@
 /* Begin PBXProject section */
 		29B97313FDCFA39411CA2CEA /* Project object */ = {
 			isa = PBXProject;
-			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "Basecamp Notifications" */;
+			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "Flare" */;
 			compatibilityVersion = "Xcode 3.1";
 			hasScannedForEncodings = 1;
 			mainGroup = 29B97314FDCFA39411CA2CEA /* Basecamp Notifications */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				8D1107260486CEB800E47090 /* Basecamp Notifications */,
+				8D1107260486CEB800E47090 /* Flare */,
 			);
 		};
 /* End PBXProject section */
@@ -391,11 +407,13 @@
 				AD477990112A2E6A0063A586 /* DropDown-FileUpload.png in Resources */,
 				AD477991112A2E6A0063A586 /* DropDown-Message.png in Resources */,
 				AD477992112A2E6A0063A586 /* DropDown-Todo.png in Resources */,
-				AD09F98D112ACD7100F78870 /* Basecamp Notifications.icns in Resources */,
 				4B85484311D438E3000E8280 /* BNPreferencesWindowController.xib in Resources */,
 				4B6A13DF11D4D74900ABA9D7 /* BWSelectableToolbar.classdescription in Resources */,
 				4B6A13E811D4D76000ABA9D7 /* BWSelectableToolbarInspector.nib in Resources */,
 				4B2E75F311D4DCFE002A1CFA /* Growl Registration Ticket.growlRegDict in Resources */,
+				4B3D86E911EBDA8400D97E9B /* Preferences-Updates.png in Resources */,
+				4B3D86F711EBDA9C00D97E9B /* Preferences-Account.png in Resources */,
+				4B3D912F11EBDD5600D97E9B /* Flare.icns in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -447,8 +465,10 @@
 				4B6A141811D4DB4B00ABA9D7 /* BNUserNotificationController.m in Sources */,
 				4B2E776511D51950002A1CFA /* BNURLPrefixValueTransformer.m in Sources */,
 				4B2E783F11D652EB002A1CFA /* NSDictionary+NPAdditions.m in Sources */,
-				4B2E78E211D66705002A1CFA /* BNMenuItemRef.m in Sources */,
 				4B2E791311D66BF7002A1CFA /* NSMenu+NPAdditions.m in Sources */,
+				4B3D8C2611EBDCCE00D97E9B /* BNMenuItemRef.m in Sources */,
+				4B3D96FD11ECA00A00D97E9B /* BNOpenIDAccount.m in Sources */,
+				4B3D973611ECA7CD00D97E9B /* NSTabView+NPAdditions.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -482,6 +502,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(DEVELOPER_DIR)/Projects/Linebreak/Basecamp Notifications\"",
+					"\"$(DEVELOPER_DIR)/Projects/Linebreak/Flare\"",
 				);
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_FIX_AND_CONTINUE = YES;
@@ -502,14 +523,14 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(DEVELOPER_DIR)/Projects/Linebreak/Basecamp Notifications\"",
+					"\"$(DEVELOPER_DIR)/Projects/Linebreak/Flare\"",
 				);
 				GCC_MODEL_TUNING = G5;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = Basecamp_Notifications_Prefix.pch;
-				INFOPLIST_FILE = "BasecampNotifications-Info.plist";
+				GCC_PREFIX_HEADER = Flare_Prefix.pch;
+				INFOPLIST_FILE = "Flare-Info.plist";
 				INSTALL_PATH = "$(HOME)/Applications";
-				PRODUCT_NAME = "Basecamp Notifications";
+				PRODUCT_NAME = Flare;
 			};
 			name = Release;
 		};
@@ -543,7 +564,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		C01FCF4A08A954540054247B /* Build configuration list for PBXNativeTarget "Basecamp Notifications" */ = {
+		C01FCF4A08A954540054247B /* Build configuration list for PBXNativeTarget "Flare" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C01FCF4B08A954540054247B /* Debug */,
@@ -552,7 +573,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		C01FCF4E08A954540054247B /* Build configuration list for PBXProject "Basecamp Notifications" */ = {
+		C01FCF4E08A954540054247B /* Build configuration list for PBXProject "Flare" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C01FCF4F08A954540054247B /* Debug */,
