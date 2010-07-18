@@ -29,6 +29,11 @@
 }
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
+	NSDate *currDate = [NSDate date];
+	if ([[currDate laterDate:[NSDate dateWithString:@"2010-08-30 00:00:00 +0000"]] isEqual:currDate]) {
+		NSRunAlertPanel(@"Beta Expired", @"This beta version has expired.\nPlease see http://getflareapp.com/ for a new version.", @"OK", nil, nil);
+		[NSApp terminate:self];
+	}
 	[BNStatusItemController sharedController];
 	[BNActivityController sharedController];
 	[GrowlApplicationBridge setGrowlDelegate:[BNUserNotificationController sharedController]];
