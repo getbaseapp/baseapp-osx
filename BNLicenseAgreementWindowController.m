@@ -19,14 +19,13 @@
 - (IBAction)agreeButtonPressed:(id)sender {
 	[self performBlock:^{
 		[[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"AcceptedLicenseAgreement"];
+		[self release];
 	} afterDelay:0.01];
 	
 	[self.window close];
-	[self release];
 }
 
 - (IBAction)disagreeButtonPressed:(id)sender {
-	
 	[NSApp terminate:self];
 }
 
