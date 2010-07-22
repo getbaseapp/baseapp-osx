@@ -16,6 +16,7 @@
 #import <Growl/Growl.h>
 #import "BNUserNotificationController.h"
 #import "BNOpenIDAccount.h"
+#import "BNLicenseAgreementWindowController.h"
 
 @implementation BNAppDelegate
 
@@ -25,6 +26,7 @@
 	[theDefaults setObject:[NSNumber numberWithInteger:1] forKey:@"SoundNotificationsEnabled"];
 	[theDefaults setObject:[NSNumber numberWithLongLong:300] forKey:@"RefreshInterval"];
 	[theDefaults setObject:@"Purr" forKey:@"SelectedSongNotificationName"];
+	[theDefaults setObject:[NSNumber numberWithBool:NO]	forKey:@"AcceptedLicenseAgreement"];
 	[[NSUserDefaults standardUserDefaults] registerDefaults:theDefaults];
 }
 
@@ -34,10 +36,29 @@
 		NSRunAlertPanel(@"Beta Expired", @"This beta version has expired.\nPlease see http://getflareapp.com/ for a new version.", @"OK", nil, nil);
 		[NSApp terminate:self];
 	}
+	
+	if ([[NSUserDefaults standardUserDefaults] boolForKey:@"AcceptedLicenseAgreement"] == NO) {
+		BNLicenseAgreementWindowController *licWinController = [[BNLicenseAgreementWindowController alloc] initWithWindowNibName:@"BNLicenseAgreementWindowController"];
+		[licWinController showWindow:self];
+		//[licWinController release];
+		[[NSUserDefaults standardUserDefaults] addObserver:self forKeyPath:@"AcceptedLicenseAgreement" options:NSKeyValueObservingOptionNew context:nil];
+	} else {
+		[self doFlareSetup];
+	}
+}
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
+	if ([object isEqual:[NSUserDefaults standardUserDefaults]]) {
+		if ([[NSUserDefaults standardUserDefaults] boolForKey:@"AcceptedLicenseAgreement"] == YES) {
+			[self doFlareSetup];
+		}
+	}
+}
+
+- (void)doFlareSetup {
 	[BNStatusItemController sharedController];
 	[BNActivityController sharedController];
 	[GrowlApplicationBridge setGrowlDelegate:[BNUserNotificationController sharedController]];
-	//[[BNActivityController sharedController] addAccount:[BNOpenIDAccount openIDAccountWithAPIToken:@"309eb835f5def0f316563e881e093371ba90208e" URL:[NSURL URLWithString:@"http://mbe.basecamphq.com"]]];
 }
 
 @end
