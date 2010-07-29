@@ -21,6 +21,7 @@
 		4B3D965211EBDED400D97E9B /* Sparkle.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 4B3D964E11EBDECE00D97E9B /* Sparkle.framework */; };
 		4B3D96FD11ECA00A00D97E9B /* BNOpenIDAccount.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B3D96FC11ECA00A00D97E9B /* BNOpenIDAccount.m */; };
 		4B3D973611ECA7CD00D97E9B /* NSTabView+NPAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B3D973511ECA7CD00D97E9B /* NSTabView+NPAdditions.m */; };
+		4B4CB83A1201C9F900A9B138 /* BNLaunchPadOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B4CB8391201C9F900A9B138 /* BNLaunchPadOperation.m */; };
 		4B6A11B311D4449300ABA9D7 /* BNTimeValueTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B6A11B211D4449300ABA9D7 /* BNTimeValueTransformer.m */; };
 		4B6A11B611D4468400ABA9D7 /* BNPreferencesWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B6A11B511D4468400ABA9D7 /* BNPreferencesWindowController.m */; };
 		4B6A122111D452A300ABA9D7 /* NSTimer+NPBlocks.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B6A122011D452A300ABA9D7 /* NSTimer+NPBlocks.m */; };
@@ -39,6 +40,10 @@
 		4BB271D911F8B611005ED166 /* SLAFlareApp.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 4BB271D711F8B611005ED166 /* SLAFlareApp.rtf */; };
 		4BB271DA11F8B611005ED166 /* SLAFlareAppBeta.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 4BB271D811F8B611005ED166 /* SLAFlareAppBeta.rtf */; };
 		4BB2722D11F8ED9D005ED166 /* NSObject+NPDelayedBlocks.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BB2722C11F8ED9D005ED166 /* NSObject+NPDelayedBlocks.m */; };
+		4BF9EA331201EB31008B9A19 /* NSString+NPAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BF9EA321201EB31008B9A19 /* NSString+NPAdditions.m */; };
+		4BF9EA4D1201EBE6008B9A19 /* RegexKitLite.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BF9EA4C1201EBE6008B9A19 /* RegexKitLite.m */; };
+		4BF9EA4F1201EBF6008B9A19 /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 4BF9EA4E1201EBF6008B9A19 /* libicucore.dylib */; };
+		4BF9EBB612020A42008B9A19 /* BNGrowlProjectStatusWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BF9EBB512020A42008B9A19 /* BNGrowlProjectStatusWrapper.m */; };
 		8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C165CFE840E0CC02AAC07 /* InfoPlist.strings */; };
 		8D11072D0486CEB800E47090 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; settings = {ATTRIBUTES = (); }; };
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
@@ -111,6 +116,8 @@
 		4B3D96FC11ECA00A00D97E9B /* BNOpenIDAccount.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BNOpenIDAccount.m; path = Projects/Linebreak/Flare/BNOpenIDAccount.m; sourceTree = DEVELOPER_DIR; };
 		4B3D973411ECA7CD00D97E9B /* NSTabView+NPAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSTabView+NPAdditions.h"; path = "Projects/Linebreak/Flare/NSTabView+NPAdditions.h"; sourceTree = DEVELOPER_DIR; };
 		4B3D973511ECA7CD00D97E9B /* NSTabView+NPAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSTabView+NPAdditions.m"; path = "Projects/Linebreak/Flare/NSTabView+NPAdditions.m"; sourceTree = DEVELOPER_DIR; };
+		4B4CB8381201C9F900A9B138 /* BNLaunchPadOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BNLaunchPadOperation.h; path = Projects/Linebreak/Flare/BNLaunchPadOperation.h; sourceTree = DEVELOPER_DIR; };
+		4B4CB8391201C9F900A9B138 /* BNLaunchPadOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BNLaunchPadOperation.m; path = Projects/Linebreak/Flare/BNLaunchPadOperation.m; sourceTree = DEVELOPER_DIR; };
 		4B6A11B111D4449300ABA9D7 /* BNTimeValueTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BNTimeValueTransformer.h; path = Projects/Linebreak/Flare/BNTimeValueTransformer.h; sourceTree = DEVELOPER_DIR; };
 		4B6A11B211D4449300ABA9D7 /* BNTimeValueTransformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BNTimeValueTransformer.m; path = Projects/Linebreak/Flare/BNTimeValueTransformer.m; sourceTree = DEVELOPER_DIR; };
 		4B6A11B411D4468400ABA9D7 /* BNPreferencesWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BNPreferencesWindowController.h; path = Projects/Linebreak/Flare/BNPreferencesWindowController.h; sourceTree = DEVELOPER_DIR; };
@@ -138,6 +145,13 @@
 		4BB271D811F8B611005ED166 /* SLAFlareAppBeta.rtf */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = SLAFlareAppBeta.rtf; path = Projects/Linebreak/Flare/SLAFlareAppBeta.rtf; sourceTree = DEVELOPER_DIR; };
 		4BB2722B11F8ED9D005ED166 /* NSObject+NPDelayedBlocks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSObject+NPDelayedBlocks.h"; path = "Projects/Linebreak/Flare/NSObject+NPDelayedBlocks.h"; sourceTree = DEVELOPER_DIR; };
 		4BB2722C11F8ED9D005ED166 /* NSObject+NPDelayedBlocks.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSObject+NPDelayedBlocks.m"; path = "Projects/Linebreak/Flare/NSObject+NPDelayedBlocks.m"; sourceTree = DEVELOPER_DIR; };
+		4BF9EA311201EB31008B9A19 /* NSString+NPAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSString+NPAdditions.h"; path = "Projects/Linebreak/Flare/NSString+NPAdditions.h"; sourceTree = DEVELOPER_DIR; };
+		4BF9EA321201EB31008B9A19 /* NSString+NPAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSString+NPAdditions.m"; path = "Projects/Linebreak/Flare/NSString+NPAdditions.m"; sourceTree = DEVELOPER_DIR; };
+		4BF9EA4B1201EBE6008B9A19 /* RegexKitLite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RegexKitLite.h; path = Projects/Linebreak/Flare/RegexKitLite.h; sourceTree = DEVELOPER_DIR; };
+		4BF9EA4C1201EBE6008B9A19 /* RegexKitLite.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RegexKitLite.m; path = Projects/Linebreak/Flare/RegexKitLite.m; sourceTree = DEVELOPER_DIR; };
+		4BF9EA4E1201EBF6008B9A19 /* libicucore.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libicucore.dylib; path = usr/lib/libicucore.dylib; sourceTree = SDKROOT; };
+		4BF9EBB412020A42008B9A19 /* BNGrowlProjectStatusWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BNGrowlProjectStatusWrapper.h; path = Projects/Linebreak/Flare/BNGrowlProjectStatusWrapper.h; sourceTree = DEVELOPER_DIR; };
+		4BF9EBB512020A42008B9A19 /* BNGrowlProjectStatusWrapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BNGrowlProjectStatusWrapper.m; path = Projects/Linebreak/Flare/BNGrowlProjectStatusWrapper.m; sourceTree = DEVELOPER_DIR; };
 		8D1107320486CEB800E47090 /* Flare.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Flare.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AD45A5581128A843006209D2 /* BNAccount.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BNAccount.h; sourceTree = "<group>"; };
 		AD45A5591128A843006209D2 /* BNAccount.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BNAccount.m; sourceTree = "<group>"; };
@@ -186,6 +200,7 @@
 				AD47767B1129E0B30063A586 /* PubSub.framework in Frameworks */,
 				4B6A142011D4DBFC00ABA9D7 /* Growl.framework in Frameworks */,
 				4B3D964F11EBDECE00D97E9B /* Sparkle.framework in Frameworks */,
+				4BF9EA4F1201EBF6008B9A19 /* libicucore.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -201,6 +216,8 @@
 				AD4FB5D7112625C200E10C2A /* BNStatus.m */,
 				AD4FB5D9112625C800E10C2A /* BNProject.h */,
 				AD4FB5DA112625C800E10C2A /* BNProject.m */,
+				4BF9EBB412020A42008B9A19 /* BNGrowlProjectStatusWrapper.h */,
+				4BF9EBB512020A42008B9A19 /* BNGrowlProjectStatusWrapper.m */,
 				4B3D8C2411EBDCCE00D97E9B /* BNMenuItemRef.h */,
 				4B3D8C2511EBDCCE00D97E9B /* BNMenuItemRef.m */,
 				AD45A5581128A843006209D2 /* BNAccount.h */,
@@ -223,6 +240,8 @@
 				AD4FB65A112633C600E10C2A /* NPBlocksMenuItem.m */,
 				AD4776551129D97A0063A586 /* BNFeedOperation.h */,
 				AD4776561129D97A0063A586 /* BNFeedOperation.m */,
+				4B4CB8381201C9F900A9B138 /* BNLaunchPadOperation.h */,
+				4B4CB8391201C9F900A9B138 /* BNLaunchPadOperation.m */,
 				AD4776971129E2260063A586 /* NSData+Base64.h */,
 				AD4776981129E2260063A586 /* NSData+Base64.m */,
 				AD4776581129DE8B0063A586 /* NSObject+NPMainThreadBlocks.h */,
@@ -249,6 +268,10 @@
 				4BB271D411F8B5EB005ED166 /* BNLicenseAgreementWindowController.m */,
 				4BB2722B11F8ED9D005ED166 /* NSObject+NPDelayedBlocks.h */,
 				4BB2722C11F8ED9D005ED166 /* NSObject+NPDelayedBlocks.m */,
+				4BF9EA311201EB31008B9A19 /* NSString+NPAdditions.h */,
+				4BF9EA321201EB31008B9A19 /* NSString+NPAdditions.m */,
+				4BF9EA4B1201EBE6008B9A19 /* RegexKitLite.h */,
+				4BF9EA4C1201EBE6008B9A19 /* RegexKitLite.m */,
 				4B6A13E411D4D74E00ABA9D7 /* BWToolkit */,
 			);
 			name = Classes;
@@ -257,6 +280,7 @@
 		1058C7A0FEA54F0111CA2CBB /* Linked Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				4BF9EA4E1201EBF6008B9A19 /* libicucore.dylib */,
 				4B6A141F11D4DBFC00ABA9D7 /* Growl.framework */,
 				ADB50D151128ABF100A8F2D4 /* Security.framework */,
 				1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */,
@@ -493,6 +517,10 @@
 				4B3D973611ECA7CD00D97E9B /* NSTabView+NPAdditions.m in Sources */,
 				4BB271D511F8B5EB005ED166 /* BNLicenseAgreementWindowController.m in Sources */,
 				4BB2722D11F8ED9D005ED166 /* NSObject+NPDelayedBlocks.m in Sources */,
+				4B4CB83A1201C9F900A9B138 /* BNLaunchPadOperation.m in Sources */,
+				4BF9EA331201EB31008B9A19 /* NSString+NPAdditions.m in Sources */,
+				4BF9EA4D1201EBE6008B9A19 /* RegexKitLite.m in Sources */,
+				4BF9EBB612020A42008B9A19 /* BNGrowlProjectStatusWrapper.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

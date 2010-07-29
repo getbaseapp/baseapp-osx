@@ -120,7 +120,7 @@ NSString * const BNNewStatusesAddedNotification = @"BNNewStatusesAddedNotificati
 	NSFont *theFont = [NSFont fontWithName:@"Lucida Grande" size:14.0];
 	NSString *realString = [NSString stringWithFormat:@"%@ (%@)", [aProject name], [aProject companyName]];
 	theFont = [[NSFontManager sharedFontManager] convertFont:theFont toHaveTrait:NSBoldFontMask];
-	NSAttributedString *titleString = [[NSAttributedString alloc] initWithString:[realString stringByTruncatingToWidth:300.0 withFont:[NSFont menuFontOfSize:14.0]]
+	NSAttributedString *titleString = [[NSAttributedString alloc] initWithString:[realString stringByTruncatingToWidth:300.0 withFont:theFont]
 																	  attributes:[NSDictionary dictionaryWithObjectsAndKeys:theFont, NSFontAttributeName, 
 																				  [NSColor blackColor], NSForegroundColorAttributeName, nil]];
 	[titleItem setAttributedTitle:titleString];
@@ -227,6 +227,36 @@ NSString * const BNNewStatusesAddedNotification = @"BNNewStatusesAddedNotificati
 	if ([finalPostArray count] > 0)
 		[[NSNotificationCenter defaultCenter] postNotificationName:BNNewStatusesAddedNotification object:aProject userInfo:[NSDictionary dictionaryWithObjectsAndKeys:finalPostArray, @"BNNewStatusesArray", nil]];
 	
+}
+
+- (void)updateMenuItemStatusesForProject:(BNProject *)theProject {
+	if ([_sortedProjects indexOfObject:theProject] == NSNotFound || [[_projectDictionary allKeys] indexOfObject:theProject] == NSNotFound)
+		return;
+	BNProject *dictProject = [[_projectDictionary allKeys] objectAtIndex:[[_projectDictionary allKeys] indexOfObject:theProject]];
+	NSMutableDictionary *projItemDict = [_projectDictionary objectForKey:dictProject];
+	for (BNStatus *currStatus in theProject.latestStatuses) {
+		BNMenuItemRef *firstRef = [projItemDict firstKeyForValue:currStatus];
+		[[firstRef menuItem] setState:currStatus.read ? NSOffState : NSOnState];
+		[[firstRef menuItem] setHidden:currStatus.read];
+	}
+	[dictProject setLatestStatuses:theProject.latestStatuses];
+	
+	[_sortedProjects replaceObjectAtIndex:[_sortedProjects indexOfObject:theProject] withObject:theProject];
+	[self _notifyAndUpdateUI];
+	
+	BOOL hasUnread = NO;
+	for (BNProject *currProject in _sortedProjects) {
+		for (BNStatus *currStatus in currProject.latestStatuses) {
+			if (![currStatus isRead]) {
+				hasUnread = YES;
+				break;
+			}
+		}
+		if (hasUnread)
+			break;
+	}
+	if (!hasUnread)
+		[[NSNotificationCenter defaultCenter] postNotificationName:BNAllStatusesReadNotification object:self];
 }
 
 - (void)removeProject:(BNProject *)aProject {
@@ -418,14 +448,14 @@ NSString * const BNNewStatusesAddedNotification = @"BNNewStatusesAddedNotificati
 		if ([[aProject hasUnread] boolValue]) {
 			
 			theFont = [[NSFontManager sharedFontManager] convertFont:theFont toHaveTrait:NSBoldFontMask];
-			NSAttributedString *titleString = [[NSAttributedString alloc] initWithString:[realString stringByTruncatingToWidth:300.0 withFont:[NSFont menuFontOfSize:14.0]]
+			NSAttributedString *titleString = [[NSAttributedString alloc] initWithString:[realString stringByTruncatingToWidth:300.0 withFont:theFont]
 																			  attributes:[NSDictionary dictionaryWithObjectsAndKeys:theFont, NSFontAttributeName, 
 																						  [NSColor blackColor], NSForegroundColorAttributeName, nil]];
 			[titleItem setAttributedTitle:titleString];
 			[titleString release];
 		} else {
 			[titleItem setAttributedTitle:nil];
-			[titleItem setTitle:realString];
+			[titleItem setTitle:[realString stringByTruncatingToWidth:300.0 withFont:[NSFont menuFontOfSize:14.0]]];
 		}
 	}
 }

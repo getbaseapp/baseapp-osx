@@ -10,6 +10,8 @@
 #import <Growl/Growl.h>
 #import "BNStatus.h"
 #import "BNMenuController.h"
+#import "BNGrowlProjectStatusWrapper.h"
+#import "BNProject.h"
 
 @implementation BNUserNotificationController
 
@@ -26,17 +28,31 @@
 				if ([statusesArray count] > 1) {
 					[GrowlApplicationBridge notifyWithTitle:[[theNotification object] description] 
 												description:[NSString stringWithFormat:@"%i new statuses have been added", [statusesArray count]] 
-										   notificationName:@"BNHasUnreadStatusesGrowlNotification" iconData:nil priority:0 isSticky:NO clickContext:nil];
+										   notificationName:@"BNHasUnreadStatusesGrowlNotification" iconData:nil priority:0 isSticky:NO clickContext:[[BNGrowlProjectStatusWrapper wrapperWithProject:[theNotification object] status:nil singleStatus:NO] propertyListRepresentation]];
 				} else if ([statusesArray count] == 1) {
 					[GrowlApplicationBridge notifyWithTitle:[[theNotification object] description] 
 												description:[[statusesArray objectAtIndex:0] title]
-										   notificationName:@"BNHasUnreadStatusesGrowlNotification" iconData:nil priority:0 isSticky:NO clickContext:nil];
+										   notificationName:@"BNHasUnreadStatusesGrowlNotification" iconData:nil priority:0 isSticky:NO clickContext:[[BNGrowlProjectStatusWrapper wrapperWithProject:[theNotification object] status:[statusesArray objectAtIndex:0] singleStatus:YES] propertyListRepresentation]];
 				}
 			}
 			
 		}];
 	}
 	return self;
+}
+
+- (void) growlNotificationWasClicked:(id)clickContext {
+	BNGrowlProjectStatusWrapper *wrapper = [BNGrowlProjectStatusWrapper wrapperWithPropertyList:clickContext];
+	if ([wrapper isSingleStatus] && [wrapper status] != nil) {
+		BNStatus *theStatus = [wrapper.project.latestStatuses objectAtIndex:[wrapper.project.latestStatuses indexOfObject:wrapper.status]];
+		theStatus.read = YES;
+		[[NSWorkspace sharedWorkspace] openURL:[theStatus URL]];
+	} else {
+		for (BNStatus *currStatus in [wrapper project].latestStatuses)
+			[currStatus setRead:YES];
+		[[NSWorkspace sharedWorkspace] openURL:[wrapper.project URL]];
+	}
+	[[BNMenuController sharedController] updateMenuItemStatusesForProject:wrapper.project];
 }
 
 #pragma mark Singleton Methods

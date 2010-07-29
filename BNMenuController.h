@@ -32,5 +32,6 @@ extern NSString * const BNNewStatusesAddedNotification;
 - (void)markAllItemsAsRead;
 - (void)markProjectAsRead:(BNProject *)aProject;
 - (BOOL)allStatusesAreRead;
+- (void)updateMenuItemStatusesForProject:(BNProject *)theProject;
 
 @end

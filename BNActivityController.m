@@ -32,16 +32,24 @@ NSString * const BNProjectArrayKey = @"BNProjectArrayKey";
 		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(_terminationNotificationReceived:) name:NSApplicationWillTerminateNotification object:NSApp];
 		[self _userDefaultsNotificationReceived:nil];
 		_checkAccountDict = [[NSMutableDictionary alloc] init];
+		_getAccountsDict = [[NSMutableDictionary alloc] init];
 		_accountArray = [[NSKeyedUnarchiver unarchiveObjectWithFile:[self pathForDataFile]] mutableCopy];
 		if (_accountArray == nil)
 			_accountArray = [[NSMutableArray alloc] init];
 		else {
-			for (BNAccount *currAccount in _accountArray)
+			for (BNAccount *currAccount in _accountArray) {
 				[currAccount setPasswordFromKeychain];
+			}
 			[self refreshAllAccounts];
 		}
 	}
 	return self;
+}
+
+- (void)getAccountsForUsername:(NSString *)aName password:(NSString *)aPass delegate:(id<BNAccountGettingDelegate>)aDelegate {
+	BNLaunchPadOperation *operation = [BNLaunchPadOperation launchPadOperationWithUsername:aName password:aPass delegate:self];
+	[_getAccountsDict setObject:aDelegate forKey:[operation identifier]];
+	[_feedQueue addOperation:operation];
 }
 
 - (void)checkAccountCredentials:(BNAccount *)theAccount delegate:(id<BNAccountCheckingDelegate>)delegate {
@@ -105,6 +113,24 @@ NSString * const BNProjectArrayKey = @"BNProjectArrayKey";
 	return [folder stringByAppendingPathComponent:fileName];    
 }
 
+#pragma mark Launch Pad Operation Delegate Methods
+
+- (void)launchPadOperation:(BNLaunchPadOperation *)operation gotAccounts:(NSArray *)accounts {
+	id <BNAccountGettingDelegate>delegate = [_getAccountsDict objectForKey:[operation identifier]];
+	if (delegate != nil && [delegate respondsToSelector:@selector(foundAccounts:)])
+		[delegate foundAccounts:accounts];
+	if ([[_getAccountsDict allKeys] containsObject:[operation identifier]])
+		[_getAccountsDict removeObjectForKey:[operation identifier]];
+}
+
+- (void)launchPadOperation:(BNLaunchPadOperation *)operation failedWithError:(NSError *)error {
+	id <BNAccountGettingDelegate>delegate = [_getAccountsDict objectForKey:[operation identifier]];
+	if (delegate != nil && [delegate respondsToSelector:@selector(findingAccountsFailedWithError:)])
+		[delegate findingAccountsFailedWithError:error];
+	if ([[_getAccountsDict allKeys] containsObject:[operation identifier]])
+		[_getAccountsDict removeObjectForKey:[operation identifier]];
+}
+
 #pragma mark Feed Operation Delegate Methods
 
 - (void)feedOperation:(BNFeedOperation *)theOperation didSucceedWithProjects:(NSArray *)projectArray {
@@ -139,7 +165,7 @@ NSString * const BNProjectArrayKey = @"BNProjectArrayKey";
 	} repeats:YES];
 }
 
-- (void)_terminationNotificationReceived:(NSNotification *)aNotification; {
+- (void)_terminationNotificationReceived:(NSNotification *)aNotification {
 	for (BNAccount *currAccount in _accountArray) {
 		if ([currAccount isComplete]) {
 			[currAccount writeToKeychain];
